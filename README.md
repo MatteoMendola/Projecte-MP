@@ -1,4 +1,4 @@
-Projecte-MP
+# Projecte-MP
 
 Projecte del joc Tetris per l'assignatura Metodologia de la Programació, carrera d'Enginyeria Informàtica, UAB.
 
