@@ -1,6 +1,6 @@
-# Projecte-MP
+Projecte-MP
 
-Projecte del Tetris per l'assignatura Metodologia de la Programació, carrera d'Enginyeria Informàtica, UAB.
+Projecte del joc Tetris per l'assignatura Metodologia de la Programació, carrera d'Enginyeria Informàtica, UAB.
 
 Data d'inici: abril del 2024.
 
