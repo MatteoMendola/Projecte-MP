@@ -37,5 +37,8 @@
 *.vcxproj.filters
 *.vcxproj.user
 *.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
 *.suo
 *.ipch
