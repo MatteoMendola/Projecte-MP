@@ -1,0 +1,7 @@
+-En figura.h, on hauriem d'utilitzar les constants
+MAX_ALCADA i MAX_AMPLADA.
+-tauler.h, altres atributs.
+-tauler.cpp, com transposar i a qué es refereix amb
+invertir columnes/files (pwp).
+-A joc.cpp, funció inicialitza, inserim la figura ja 
+girada o primer la inserim i després la girem.

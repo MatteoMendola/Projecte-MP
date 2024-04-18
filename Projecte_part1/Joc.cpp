@@ -53,17 +53,11 @@ ColorFigura Joc::convertirEnColorFigura(int color) const
 	return c;
 }
 
-void Joc::inserirFigura(Figura& f, int nGirs)
+void Joc::inserirFigura(Figura& f)
 {
 	if (f.getTipus() != NO_FIGURA)
 	{
-		//inserir figura
-		/*
-		for (int i = 0; i < nGirs; i++)
-		{
-			m_tauler.giraFigura(f, GIR_HORARI);
-		}
-		*/
+		//inserir figura ja girada
 	}
 }
 
@@ -74,14 +68,14 @@ void Joc::inicialitza(const string& nomFitxer)
 
 	if (fitxer.is_open())
 	{
-		int tipusAux, fila, columna, nGirs;
-		fitxer >> tipusAux >> fila >> columna >> nGirs;
+		int tipusAux, fila, columna, gir;
+		fitxer >> tipusAux >> fila >> columna >> gir;
 		TipusFigura tipus = convertirEnTipusFigura(tipusAux);
 
 		m_figuraActual.setTipus(tipus);
 		m_figuraActual.setPosActFil(fila);
 		m_figuraActual.setPosActCol(columna);
-		m_figuraActual.setFormaAct(0);
+		m_figuraActual.setFormaAct(gir);
 		m_figuraActual.setColor(convertirEnColorFigura(tipus));
 
 		ColorFigura color;
@@ -96,7 +90,7 @@ void Joc::inicialitza(const string& nomFitxer)
 			}
 		}
 
-		inserirFigura(m_figuraActual, nGirs);
+		inserirFigura(m_figuraActual);
 
 		fitxer.close();
 	}
