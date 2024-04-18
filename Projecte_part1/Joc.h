@@ -17,6 +17,10 @@ public:
 private:
 	Tauler m_tauler;
 	Figura m_figuraActual;
+
+	TipusFigura convertirEnTipusFigura(int tipus) const;
+	ColorFigura convertirEnColorFigura(int color) const;
+	void inserirFigura(Figura& f, int nGirs);
 };
 
 #endif

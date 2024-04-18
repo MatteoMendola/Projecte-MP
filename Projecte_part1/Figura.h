@@ -42,19 +42,25 @@ public:
 
     ColorFigura getColor() const { return m_color; }
     TipusFigura getTipus() const { return m_tipus; }
+    int getPosActFil() const { return m_posicioActual[0]; }
+    int getPosActCol() const { return m_posicioActual[1]; }
+    int getFormaAct() const { return m_formaActual; }
 
-    void setColor(ColorFigura color) { m_color = color; }   //puc posar "const ColorFigura& color"?
-    void setTipus(TipusFigura tipus) { m_tipus = tipus; }   //puc posar "const TipusFigura& tipus"?
+    void setColor(ColorFigura color) { m_color = color; }
+    void setTipus(TipusFigura tipus) { m_tipus = tipus; }
+    void setPosActFil(int fila) { m_posicioActual[0] = fila; }
+    void setPosActCol(int col) { m_posicioActual[1] = col; }
+    void setFormaAct(int formaAct) { m_formaActual = formaAct; }
 
-    //moureLateralmentEsq();
-    //moureLateralmentDreta();
-    //baixarFigura();
-    //girarFigura(DireccioGir dir);
+    void moureLateralment(int dirX); //+1 esq, -1 dreta
+    void baixarFigura() { m_posicioActual[0]++; }
+    void girarFigura(DireccioGir dir);
+    int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
 private:
     ColorFigura m_color;
     TipusFigura m_tipus;
-    //m_posicioActual;
-    //m_formaActual;
+    int m_posicioActual[2]; //array per saber on es troba el centre de la figura dins del tauler, primera posició: fila, segona posició: columna
+    int m_formaActual;  //0 – 3, segons ordre dels girs en sentit horari a la descripció de les figures(pàgina 8 del pwp de la 1a part)
 };
 
 #endif
