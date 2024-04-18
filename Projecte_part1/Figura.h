@@ -14,7 +14,6 @@ typedef enum
     NO_COLOR
 } ColorFigura;
 
-
 typedef enum
 {
     NO_FIGURA = 0,
@@ -38,7 +37,24 @@ typedef enum
 
 class Figura
 {
-};
+public:
+    Figura();
 
+    ColorFigura getColor() const { return m_color; }
+    TipusFigura getTipus() const { return m_tipus; }
+
+    void setColor(ColorFigura color) { m_color = color; }   //puc posar "const ColorFigura& color"?
+    void setTipus(TipusFigura tipus) { m_tipus = tipus; }   //puc posar "const TipusFigura& tipus"?
+
+    //moureLateralmentEsq();
+    //moureLateralmentDreta();
+    //baixarFigura();
+    //girarFigura(DireccioGir dir);
+private:
+    ColorFigura m_color;
+    TipusFigura m_tipus;
+    //m_posicioActual;
+    //m_formaActual;
+};
 
 #endif

@@ -7,5 +7,8 @@ const int MAX_COL = 8;
 
 class Tauler
 {
+public:
+private:
 };
+
 #endif

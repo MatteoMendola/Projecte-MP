@@ -14,8 +14,9 @@ public:
 	bool mouFigura(int dirX);
 	int baixaFigura();
 	void escriuTauler(const string& nomFitxer);
-
 private:
+	Tauler m_tauler;
+	Figura m_figuraActual;
 };
 
 #endif
