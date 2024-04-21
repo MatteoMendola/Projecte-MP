@@ -20,7 +20,6 @@ private:
 
 	TipusFigura convertirEnTipusFigura(int tipus) const;
 	ColorFigura convertirEnColorFigura(int color) const;
-	void inserirFigura(Figura& f);
 };
 
 #endif

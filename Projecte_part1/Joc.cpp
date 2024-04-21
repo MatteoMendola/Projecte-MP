@@ -53,14 +53,6 @@ ColorFigura Joc::convertirEnColorFigura(int color) const
 	return c;
 }
 
-void Joc::inserirFigura(Figura& f)
-{
-	if (f.getTipus() != NO_FIGURA)
-	{
-		//inserir figura ja girada
-	}
-}
-
 void Joc::inicialitza(const string& nomFitxer)
 {
 	ifstream fitxer;
@@ -68,15 +60,16 @@ void Joc::inicialitza(const string& nomFitxer)
 
 	if (fitxer.is_open())
 	{
-		int tipusAux, fila, columna, gir;
-		fitxer >> tipusAux >> fila >> columna >> gir;
-		TipusFigura tipus = convertirEnTipusFigura(tipusAux);
-
-		m_figuraActual.setTipus(tipus);
+		int tipusAux, fila, columna, nGirs;
+		fitxer >> tipusAux >> fila >> columna >> nGirs;
+		
+		m_figuraActual.setTipus(convertirEnTipusFigura(tipusAux));
 		m_figuraActual.setPosActFil(fila);
 		m_figuraActual.setPosActCol(columna);
-		m_figuraActual.setFormaAct(gir);
-		m_figuraActual.setColor(convertirEnColorFigura(tipus));
+		//m_figuraActual.setFormaAct(gir);	això ho modifiquem a l'hora d'inserir la figura, que es quan es gira
+		m_figuraActual.setColor(convertirEnColorFigura(tipusAux));
+		m_figuraActual.inicialitzarMatriuAuxiliar();
+		m_figuraActual.girarFigura(GIR_HORARI, nGirs);
 
 		ColorFigura color;
 		int colorAux;
@@ -90,7 +83,7 @@ void Joc::inicialitza(const string& nomFitxer)
 			}
 		}
 
-		inserirFigura(m_figuraActual);
+		m_tauler.inserirFigura(m_figuraActual);
 
 		fitxer.close();
 	}

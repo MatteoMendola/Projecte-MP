@@ -13,7 +13,7 @@ public:
 
 	void setColorTauler(ColorFigura color, int fil, int col) { m_tauler[fil][col] = color; }
 
-	void giraFigura(Figura& f, DireccioGir dir);
+	void inserirFigura(const Figura& f);
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
 };
