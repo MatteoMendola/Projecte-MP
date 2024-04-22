@@ -63,6 +63,15 @@ void Figura::inicialitzarMatriuAuxiliar()
 	}
 }
 
+void Figura::getMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA]) const
+{
+	for (int i = 0; i < MAX_ALCADA; i++)
+	{
+		for (int j = 0; j < MAX_AMPLADA; j++)
+			matriuFormaAct[i][j] = m_formaActualEnMatriu[i][j];
+	}
+}
+
 void Figura::moureLateralment(int dirX)
 {
 	switch (dirX)
@@ -74,48 +83,34 @@ void Figura::moureLateralment(int dirX)
 	}
 }
 
-void Figura::girarFigura(DireccioGir dir, int nGirs)
+void Figura::girarFigura(DireccioGir dir)
 {
-	/*
-	
-		
+	if (m_tipus != NO_FIGURA && m_tipus != FIGURA_O)	//si és el quadrat no el girem, ja que es queda igual
+	{
+		int casMax = nombreCaselles(m_tipus);
+		bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+		getMatriuFormaAct(matriuAux);
 
-		if (nCasMax == 3)
+		if (casMax == 3)
 		{
-			for (int i = 0; i < nCasMax; i++)	//transposar
+			for (int i = 0; i < casMax; i++)	//transposar
 			{
-				for (int j = 0; j < nCasMax; j++)
+				for (int j = 0; j < casMax; j++)
 				{
-
+					m_formaActualEnMatriu[i][j] = matriuAux[j][i];
 				}
 			}
 		}
 		else //nCasMax == 4 (no hi ha més casos)
 		{
-			for (int i = 0; i < nCasMax; i++)	//transposar
+			for (int i = 0; i < casMax; i++)	//transposar
 			{
-				for (int j = 0; j < nCasMax; j++)
+				for (int j = 0; j < casMax; j++)
 				{
-
+					m_formaActualEnMatriu[i][j] = matriuAux[j][i];
 				}
 			}
 		}
-		
-		switch (dir)
-		{
-		case GIR_HORARI:
-			//invertir columnes
-			break;
-		case GIR_ANTI_HORARI:
-			//invertir files
-			break;
-		}
-	}
-	*/
-
-	if (m_tipus != NO_FIGURA && m_tipus != FIGURA_O)
-	{
-		int casMax = nombreCaselles(m_tipus);
 
 		switch (dir)
 		{
