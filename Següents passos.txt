@@ -1,4 +1,3 @@
--clase Joc.cpp fer funció baixaFigura (detectar si es pot eliminar la fila ho farem més endavant).
 -comprovar que les funcions realitzades funcionin amb els primers tests.
 -fer funció mou figura.
 -modificar les funcions fetes per detectar si es pot moure sense sortir-se dels límits.
