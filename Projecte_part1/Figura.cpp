@@ -83,50 +83,86 @@ void Figura::moureLateralment(int dirX)
 	}
 }
 
+void Figura::transposarMatriu(int nCasMax)
+{
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	getMatriuFormaAct(matriuAux);
+
+	for (int i = 0; i < nCasMax; i++)	//transposar
+	{
+		for (int j = 0; j < nCasMax; j++)
+			m_formaActualEnMatriu[i][j] = matriuAux[j][i];
+	}
+}
+
+void Figura::invertirColumnes(int nCasMax)
+{
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	getMatriuFormaAct(matriuAux);
+	
+	int fixe = 2;
+
+	if (nCasMax == 4)	//si es la figura "I"
+	{
+		for (int i = 0; i < nCasMax; i++)
+		{
+			m_formaActualEnMatriu[i][1] = matriuAux[i][fixe];	//intercanviar la 2a i la 3a columna
+			m_formaActualEnMatriu[i][fixe] = matriuAux[i][1];	//intercanviar la 3a i la 2a columna
+		}
+		
+		fixe = 3;
+	}
+		
+	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
+	{
+		m_formaActualEnMatriu[i][0] = matriuAux[i][fixe];	//intercanviar la primera i la última columna
+		m_formaActualEnMatriu[i][fixe] = matriuAux[i][0];	//intercanviar la última i la primer columna;
+	}
+}
+
+void Figura::invertirFiles(int nCasMax)
+{
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	getMatriuFormaAct(matriuAux);
+
+	int fixe = 2;
+
+	if (nCasMax == 4)	//si es la figura "I"
+	{
+		for (int i = 0; i < nCasMax; i++)
+		{
+			m_formaActualEnMatriu[1][i] = matriuAux[fixe][i];	//intercanviar la 2a i la 3a fila
+			m_formaActualEnMatriu[fixe][i] = matriuAux[1][i];	//intercanviar la 3a i la 2a fila
+		}
+
+		fixe = 3;
+	}
+
+	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
+	{
+		m_formaActualEnMatriu[0][i] = matriuAux[fixe][i];	//intercanviar la primera i la última fila
+		m_formaActualEnMatriu[fixe][i] = matriuAux[0][i];	//intercanviar la última i la primer fila
+	}
+}
+
 void Figura::girarFigura(DireccioGir dir)
 {
 	if (m_tipus != NO_FIGURA && m_tipus != FIGURA_O)	//si és el quadrat no el girem, ja que es queda igual
 	{
-		int casMax = nombreCaselles(m_tipus);
-		bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
-		getMatriuFormaAct(matriuAux);
-
-		if (casMax == 3)
-		{
-			for (int i = 0; i < casMax; i++)	//transposar
-			{
-				for (int j = 0; j < casMax; j++)
-				{
-					m_formaActualEnMatriu[i][j] = matriuAux[j][i];
-				}
-			}
-		}
-		else //nCasMax == 4 (no hi ha més casos)
-		{
-			for (int i = 0; i < casMax; i++)	//transposar
-			{
-				for (int j = 0; j < casMax; j++)
-				{
-					m_formaActualEnMatriu[i][j] = matriuAux[j][i];
-				}
-			}
-		}
+		int nCasMax = nombreCaselles(m_tipus);
+		transposarMatriu(nCasMax);
 
 		switch (dir)
 		{
 		case GIR_HORARI:
-
-
-
+			invertirColumnes(nCasMax);
 			if (m_formaActual != 3)
 				m_formaActual++;
 			else
 				m_formaActual = 0;
 			break;
 		case GIR_ANTI_HORARI:
-
-
-
+			invertirFiles(nCasMax);
 			if (m_formaActual != 0)
 				m_formaActual--;
 			else
