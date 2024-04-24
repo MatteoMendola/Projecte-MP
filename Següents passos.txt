@@ -1,2 +1,8 @@
--clase Tauler.cpp, funció inserir figura.
--clase Joc.cpp, comprovar que inicialitza funciona i fer escriu tauler i giraFigura.
+-clase Joc.cpp fer funció escriuTauler.
+-clase Joc.cpp fer funció baixaFigura (detectar si es pot eliminar la fila ho farem més endavant).
+-comprovar que les funcions realitzades funcionin amb els primers tests.
+-fer funció mou figura.
+-modificar les funcions fetes per detectar si es pot moure sense sortir-se dels límits.
+-fer giraFigura (hauria de ser fàcil amb la funció per girar que ja hem implementat).
+-modificar les funcions fetes per detectar si es pot girar sense colisionar amb altres figures.
+-fer la funcionalitat d'eliminar files si estan plenes.
