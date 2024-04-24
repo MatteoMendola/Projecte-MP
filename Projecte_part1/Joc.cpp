@@ -107,5 +107,18 @@ int Joc::baixaFigura()
 
 void Joc::escriuTauler(const string& nomFitxer)
 {
+	ofstream fitxer;
+	fitxer.open(nomFitxer);
 
+	if (fitxer.is_open())
+	{
+		for (int i = 0; i < MAX_FILA; i++)
+		{
+			for (int j = 0; j < MAX_COL; j++)
+				fitxer << m_tauler.getColorTauler(i, j) << " ";
+			fitxer << endl;
+		}
+
+		fitxer.close();
+	}
 }
