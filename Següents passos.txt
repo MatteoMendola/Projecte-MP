@@ -1,6 +1,5 @@
--modificar baixaFigura per detectar si hi ha figures a sota o no.
 -fer funció mou figura.
--modificar les funcions fetes per detectar si es pot moure sense sortir-se dels límits.
+-modificar la funció mouFigura per detectar si es pot moure sense sortir-se dels límits.
 -fer giraFigura (hauria de ser fàcil amb la funció per girar que ja hem implementat).
--modificar les funcions fetes per detectar si es pot girar sense colisionar amb altres figures.
+-modificar la funció giraFigura per detectar si es pot girar sense colisionar amb altres figures.
 -fer la funcionalitat d'eliminar files si estan plenes.
