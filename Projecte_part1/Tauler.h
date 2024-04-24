@@ -14,6 +14,7 @@ public:
 	void setColorTauler(ColorFigura color, int fil, int col) { m_tauler[fil][col] = color; }
 
 	void inserirFigura(const Figura& f);
+	void eliminarFigura(const Figura& f);
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
 };
