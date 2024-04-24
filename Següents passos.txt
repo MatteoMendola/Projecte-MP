@@ -1,4 +1,4 @@
--comprovar que les funcions realitzades funcionin amb els primers tests.
+-modificar baixaFigura per detectar si hi ha figures a sota o no.
 -fer funció mou figura.
 -modificar les funcions fetes per detectar si es pot moure sense sortir-se dels límits.
 -fer giraFigura (hauria de ser fàcil amb la funció per girar que ja hem implementat).
