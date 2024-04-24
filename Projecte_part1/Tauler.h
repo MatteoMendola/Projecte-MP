@@ -15,8 +15,12 @@ public:
 
 	void inserirFigura(const Figura& f);
 	void eliminarFigura(const Figura& f);
+	bool comprovarLimitsInferiors(const Figura& f);	//si retorna true, la figura pot baixa, si retorna false, no
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
+	void calcularPosicioTauler(int nCasMax, int& fila, int& columna, const Figura& f) const;	//calcula la primera posició del tauler on comença la figura (cantonada
+																								//superior esquerra) a partir del centre de la figura depenent del tipus
+																								//de figura que sigui
 };
 
 #endif

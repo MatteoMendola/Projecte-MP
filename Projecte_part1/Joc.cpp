@@ -102,9 +102,13 @@ bool Joc::mouFigura(int dirX)
 
 int Joc::baixaFigura()
 {
-	m_tauler.eliminarFigura(m_figuraActual);
-	m_figuraActual.setPosActFil(m_figuraActual.getPosActFil() + 1);
-	m_tauler.inserirFigura(m_figuraActual);
+	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
+	{
+		m_tauler.eliminarFigura(m_figuraActual);
+		m_figuraActual.setPosActFil(m_figuraActual.getPosActFil() + 1);
+		m_tauler.inserirFigura(m_figuraActual);
+	}
+
 	return 0;
 }
 
