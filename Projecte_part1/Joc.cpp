@@ -66,7 +66,7 @@ void Joc::inicialitza(const string& nomFitxer)
 		m_figuraActual.setTipus(convertirEnTipusFigura(tipusAux));
 		m_figuraActual.setPosActFil(fila);
 		m_figuraActual.setPosActCol(columna);
-		//m_figuraActual.setFormaAct(gir);	això ho modifiquem a l'hora de girar la figura
+		m_figuraActual.setFormaAct(0);	//això ho modifiquem a l'hora de girar la figura
 		m_figuraActual.setColor(convertirEnColorFigura(tipusAux));
 		m_figuraActual.inicialitzarMatriuAuxiliar();
 		for (int i = 0; i < nGirs; i++)

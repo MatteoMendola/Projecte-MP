@@ -16,6 +16,12 @@ Figura::Figura()
 
 void Figura::inicialitzarMatriuAuxiliar()
 {
+	for (int i = 0; i < MAX_ALCADA; i++)	//la inicialitzem tota a false ja que, com els tests es fan seguits, es guarden els true dels tests anteriors
+	{
+		for (int j = 0; j < MAX_AMPLADA; j++)
+			m_formaActualEnMatriu[i][j] = false;
+	}
+
 	switch (m_tipus)
 	{
 	case FIGURA_O:
