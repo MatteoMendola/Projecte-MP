@@ -28,6 +28,7 @@
 
 # Executables
 *.exe
+*.exe.recipe
 *.out
 *.app
 
@@ -36,9 +37,16 @@
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+*.vcxproj.FileListAbsolute.txt
 *.VC.db
 *.VC.db-shm
 *.VC.db-wal
 *.VC.opendb
 *.suo
 *.ipch
+*.ilk
+*.log
+*.tlog
+*.pdb
+*.idb
+*.lastbuildstate
