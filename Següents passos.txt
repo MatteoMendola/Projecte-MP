@@ -1,3 +1,2 @@
--clase Figura.cpp, funció girar figura.
 -clase Tauler.cpp, funció inserir figura.
 -clase Joc.cpp, comprovar que inicialitza funciona i fer escriu tauler i giraFigura.
