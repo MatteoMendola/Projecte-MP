@@ -54,6 +54,7 @@ public:
     void setFormaAct(int formaAct) { m_formaActual = formaAct; }
 
     void inicialitzarMatriuAuxiliar();  //s'inicialitza la matriu auxiliar sense girs
+    int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
     void moureLateralment(int dirX); //+1 esq, -1 dreta
     void baixarFigura() { m_posicioActual[0]++; }
     void girarFigura(DireccioGir dir);
@@ -63,7 +64,6 @@ private:
     int m_posicioActual[2]; //array que guarda les coordenades del centre de la figura dins del tauler, primera posició: fila, segona posició: columna
     int m_formaActual;  //0 – 3, segons ordre dels girs en sentit horari a la descripció de les figures (pàgina 8 del pwp de la 1a part)
     bool m_formaActualEnMatriu[MAX_ALCADA][MAX_AMPLADA];    //matriu que guarda la forma de la figura, true = hi ha peça, false = no hi ha
-    int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
     void transposarMatriu(int nCasMax);
     void invertirColumnes(int nCasMax);
     void invertirFiles(int nCasMax);
