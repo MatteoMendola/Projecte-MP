@@ -92,12 +92,12 @@ void Joc::inicialitza(const string& nomFitxer)
 
 bool Joc::giraFigura(DireccioGir direccio)
 {
-
+	return false;
 }
 
 bool Joc::mouFigura(int dirX)
 {
-
+	return false;
 }
 
 int Joc::baixaFigura()
@@ -105,6 +105,7 @@ int Joc::baixaFigura()
 	m_tauler.eliminarFigura(m_figuraActual);
 	m_figuraActual.setPosActFil(m_figuraActual.getPosActFil() + 1);
 	m_tauler.inserirFigura(m_figuraActual);
+	return 0;
 }
 
 void Joc::escriuTauler(const string& nomFitxer)
