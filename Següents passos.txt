@@ -1,5 +1,4 @@
--fer funció mou figura.
--modificar la funció mouFigura per detectar si es pot moure sense sortir-se dels límits.
+-mou figura funciona correctament, pensar en com optimitzar-la (codi massa llarg).
 -fer giraFigura (hauria de ser fàcil amb la funció per girar que ja hem implementat).
 -modificar la funció giraFigura per detectar si es pot girar sense colisionar amb altres figures.
 -fer la funcionalitat d'eliminar files si estan plenes.
