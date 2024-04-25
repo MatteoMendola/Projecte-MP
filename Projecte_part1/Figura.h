@@ -55,7 +55,7 @@ public:
 
     void inicialitzarMatriuAuxiliar();  //s'inicialitza la matriu auxiliar sense girs
     int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
-    void moureLateralment(int dirX); //+1 esq, -1 dreta
+    void moureLateralment(int dirX); //-1 esq, +1 dreta
     void baixarFigura() { m_posicioActual[0]++; }
     void girarFigura(DireccioGir dir);
 private:

@@ -99,12 +99,19 @@ bool Joc::giraFigura(DireccioGir direccio)
 
 bool Joc::mouFigura(int dirX)
 {
-	bool valid = false;
+	bool valid = m_tauler.comprovarLimitsLaterals(dirX, m_figuraActual);
+
+	if (valid)
+	{
+		m_tauler.eliminarFigura(m_figuraActual);
+		m_figuraActual.moureLateralment(dirX);
+		m_tauler.inserirFigura(m_figuraActual);
+	}
 
 	return valid;
 }
 
-int Joc::baixaFigura()
+int Joc::baixaFigura()	//falta afegir la funcionalitat per eliminar files en cas de que estiguin plenes
 {
 	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
 	{

@@ -103,9 +103,9 @@ void Figura::moureLateralment(int dirX)
 {
 	switch (dirX)
 	{
-	case 1: m_posicioActual[1]--;
+	case 1: m_posicioActual[1]++;
 		break;
-	case -1: m_posicioActual[1]++;
+	case -1: m_posicioActual[1]--;
 		break;
 	}
 }

@@ -95,9 +95,9 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 			{
 				if (matriuAux[i][j])	//si hi ha peça
 				{
-					if (!matriuAux[i + 1][j])	//si a sota de la peça no hi ha peça
+					if (!matriuAux[i + 1][j])	//si a sota la peça no hi ha peça
 					{
-						if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE || (fila + i + 1) == MAX_FILA)	//comprovar si la posició sota de la peça està buida o si ens trobem a la última fila del tauler
+						if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE || (fila + i + 1) == MAX_FILA)	//comprovar si la posició sota la peça està buida o si ens trobem a la última fila del tauler
 							aux = false;
 					}
 				}
@@ -115,7 +115,7 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 
 			while (j < nCasMax && aux)	//estan totes les peces en la mateixa fila, hem de recórrer les columnes
 			{
-				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE || (filaI + 1) == MAX_FILA)	//comprovar si la posició sota de la peça està buida o si ens trobem a la última fila del tauler
+				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE || (filaI + 1) == MAX_FILA)	//comprovar si la posició sota la peça està buida o si ens trobem a la última fila del tauler
 					aux = false;
 				j++;
 			}
@@ -127,6 +127,108 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 			if (m_tauler[fila + 4][columnaI] != COLOR_NEGRE || (fila + 4) == MAX_FILA)	//estan totes les peces en la mateixa columna, només hem de comprovar que sota la última peça estigui buit o si ens trobem a la última fila del tauler
 				aux = false;
 		}
+
+	return aux;
+}
+
+bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com optimitzar aquesta funció
+{
+	int nCasMax = f.nombreCaselles(f.getTipus());
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	f.getMatriuFormaAct(matriuAux);
+	int fila = 0, columna = 0;
+	calcularPosicioTauler(nCasMax, fila, columna, f);
+
+	int i = 0, j = 0;
+	bool aux = true;
+
+	switch (dirX)
+	{
+	case 1:
+		if (f.getTipus() != FIGURA_I)
+		{
+			while (i < nCasMax && aux)	//fem una cerca en la matriu 
+			{
+				while (j < nCasMax && aux)
+				{
+					if (matriuAux[i][j])	//si hi ha peça
+					{
+						if (!matriuAux[i][j + 1])	//si a la dreta de la peça no hi ha peça
+						{
+							if (m_tauler[fila + i][columna + j + 1] != COLOR_NEGRE || (columna + j + 1) == MAX_COL)	//comprovar si la posició a la dreta de la peça està buida o si ens trobem a la última columna del tauler
+								aux = false;
+						}
+					}
+					j++;
+				}
+
+				j = 0;
+				i++;
+			}
+		}
+		else    //figura "I"
+			if (f.getFormaAct() == 0 || f.getFormaAct() == 2)	//la "I" està en horitzontal
+			{
+				int filaI = f.getPosActFil();
+
+				if (m_tauler[filaI][columna + 4] != COLOR_NEGRE || (columna + 4) == MAX_COL)	//estan totes les peces en la mateixa fila, només hem de comprovar que a la dreta de la última peça estigui buit o si ens trobem a la última columna del tauler
+					aux = false;
+			}
+			else    //la "I" està en vertical
+			{
+				int columnaI = f.getPosActCol();
+
+				while (i < nCasMax && aux)	//estan totes les peces en la mateixa columna, hem de recórrer les files
+				{
+					if (m_tauler[fila + i][columnaI + 1] != COLOR_NEGRE || (columnaI + 1) == MAX_COL)	//comprovar si la posició a la dreta de la peça està buida o si ens trobem a la última columna del tauler
+						aux = false;
+					i++;
+				}
+			}
+		break;
+	case -1:
+		if (f.getTipus() != FIGURA_I)
+		{
+			while (i < nCasMax && aux)	//fem una cerca en la matriu 
+			{
+				while (j < nCasMax && aux)
+				{
+					if (matriuAux[i][j])	//si hi ha peça
+					{
+						if (!matriuAux[i][j - 1] || (columna + j - 1) == -1)	//si a la esquerra de la peça no hi ha peça o si ens trobem a la primera columna del tauler
+						{
+							if (m_tauler[fila + i][columna + j - 1] != COLOR_NEGRE || (columna + j - 1) == -1)	//comprovar si la posició a la esquerra de la peça està buida o si ens trobem a la primera columna del tauler
+								aux = false;
+						}
+					}
+					j++;
+				}
+
+				j = 0;
+				i++;
+			}
+		}
+		else    //figura "I"
+			if (f.getFormaAct() == 0 || f.getFormaAct() == 2)	//la "I" està en horitzontal
+			{
+				int filaI = f.getPosActFil();
+
+				if (m_tauler[filaI][columna - 1] != COLOR_NEGRE || (columna - 1) == -1)	//estan totes les peces en la mateixa fila, només hem de comprovar que a la esquerra de la primera peça estigui buit o si ens trobem a la primera columna del tauler
+					aux = false;
+			}
+			else    //la "I" està en vertical
+			{
+				int columnaI = f.getPosActCol();
+
+				while (i < nCasMax && aux)	//estan totes les peces en la mateixa columna, hem de recórrer les files
+				{
+					if (m_tauler[fila + i][columnaI - 1] != COLOR_NEGRE || (columnaI - 1) == -1)	//comprovar si la posició a la esquerra de la peça està buida o si ens trobem a la primera columna del tauler
+						aux = false;
+					i++;
+				}
+			}
+		break;
+	}
 
 	return aux;
 }
