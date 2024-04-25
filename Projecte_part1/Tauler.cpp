@@ -76,7 +76,7 @@ void Tauler::eliminarFigura(const Figura& f)
 	}
 }
 
-bool Tauler::comprovarLimitsInferiors(const Figura& f)	//falta afegir comentaris explicatius
+bool Tauler::comprovarLimitsInferiors(const Figura& f)
 {
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
@@ -97,7 +97,7 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)	//falta afegir comentaris
 				{
 					if (!matriuAux[i + 1][j])	//si a sota de la peça no hi ha peça
 					{
-						if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE)	//comprovar si la posició sota de la peça està buida
+						if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE || (fila + i + 1) == MAX_FILA)	//comprovar si la posició sota de la peça està buida o si ens trobem a la última fila del tauler
 							aux = false;
 					}
 				}
@@ -115,7 +115,7 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)	//falta afegir comentaris
 
 			while (j < nCasMax && aux)	//estan totes les peces en la mateixa fila, hem de recórrer les columnes
 			{
-				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE)	//comprovar si la posició sota de la peça està buida
+				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE || (filaI + 1) == MAX_FILA)	//comprovar si la posició sota de la peça està buida o si ens trobem a la última fila del tauler
 					aux = false;
 				j++;
 			}
@@ -124,7 +124,7 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)	//falta afegir comentaris
 		{
 			int columnaI = f.getPosActCol();
 
-			if (m_tauler[fila + 4][columnaI] != COLOR_NEGRE)	//estan totes les peces en la mateixa columna, només hem de comprovar que sota la última peça estigui buit
+			if (m_tauler[fila + 4][columnaI] != COLOR_NEGRE || (fila + 4) == MAX_FILA)	//estan totes les peces en la mateixa columna, només hem de comprovar que sota la última peça estigui buit o si ens trobem a la última fila del tauler
 				aux = false;
 		}
 

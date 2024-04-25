@@ -99,7 +99,9 @@ bool Joc::giraFigura(DireccioGir direccio)
 
 bool Joc::mouFigura(int dirX)
 {
-	return false;
+	bool valid = false;
+
+	return valid;
 }
 
 int Joc::baixaFigura()
