@@ -14,6 +14,15 @@ Figura::Figura()
 	}
 }
 
+void Figura::getMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA]) const
+{
+	for (int i = 0; i < MAX_ALCADA; i++)
+	{
+		for (int j = 0; j < MAX_AMPLADA; j++)
+			matriuFormaAct[i][j] = m_formaActualEnMatriu[i][j];
+	}
+}
+
 void Figura::inicialitzarMatriuAuxiliar()
 {
 	for (int i = 0; i < MAX_ALCADA; i++)	//la inicialitzem tota a false ja que, com els tests es fan seguits, es guarden els true dels tests anteriors
@@ -69,13 +78,25 @@ void Figura::inicialitzarMatriuAuxiliar()
 	}
 }
 
-void Figura::getMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA]) const
+int Figura::nombreCaselles(TipusFigura tipus) const
 {
-	for (int i = 0; i < MAX_ALCADA; i++)
+	int nCas = 0;
+
+	switch (tipus)
 	{
-		for (int j = 0; j < MAX_AMPLADA; j++)
-			matriuFormaAct[i][j] = m_formaActualEnMatriu[i][j];
+	case FIGURA_O: nCas = 2;
+		break;
+	case FIGURA_I: nCas = 4;
+		break;
+	case FIGURA_T:
+	case FIGURA_L:
+	case FIGURA_J:
+	case FIGURA_Z:
+	case FIGURA_S: nCas = 3;
+		break;
 	}
+
+	return nCas;
 }
 
 void Figura::moureLateralment(int dirX)
@@ -94,7 +115,7 @@ void Figura::transposarMatriu(int nCasMax)
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	getMatriuFormaAct(matriuAux);
 
-	for (int i = 0; i < nCasMax; i++)	//transposar
+	for (int i = 0; i < nCasMax; i++)
 	{
 		for (int j = 0; j < nCasMax; j++)
 			m_formaActualEnMatriu[i][j] = matriuAux[j][i];
@@ -122,7 +143,7 @@ void Figura::invertirColumnes(int nCasMax)
 	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
 	{
 		m_formaActualEnMatriu[i][0] = matriuAux[i][fixe];	//intercanviar la primera i la última columna
-		m_formaActualEnMatriu[i][fixe] = matriuAux[i][0];	//intercanviar la última i la primer columna;
+		m_formaActualEnMatriu[i][fixe] = matriuAux[i][0];	//intercanviar la última i la primera columna;
 	}
 }
 
@@ -147,7 +168,7 @@ void Figura::invertirFiles(int nCasMax)
 	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
 	{
 		m_formaActualEnMatriu[0][i] = matriuAux[fixe][i];	//intercanviar la primera i la última fila
-		m_formaActualEnMatriu[fixe][i] = matriuAux[0][i];	//intercanviar la última i la primer fila
+		m_formaActualEnMatriu[fixe][i] = matriuAux[0][i];	//intercanviar la última i la primera fila
 	}
 }
 
@@ -176,25 +197,4 @@ void Figura::girarFigura(DireccioGir dir)
 			break;
 		}
 	}
-}
-
-int Figura::nombreCaselles(TipusFigura tipus) const
-{	
-	int nCas = 0;
-
-	switch (tipus)
-	{
-	case FIGURA_O: nCas = 2;
-		break;
-	case FIGURA_I: nCas = 4;
-		break;
-	case FIGURA_T:
-	case FIGURA_L:
-	case FIGURA_J:
-	case FIGURA_Z:
-	case FIGURA_S: nCas = 3;
-		break;
-	}
-
-	return nCas;
 }

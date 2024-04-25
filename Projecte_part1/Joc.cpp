@@ -107,7 +107,7 @@ int Joc::baixaFigura()
 	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
 	{
 		m_tauler.eliminarFigura(m_figuraActual);
-		m_figuraActual.setPosActFil(m_figuraActual.getPosActFil() + 1);
+		m_figuraActual.baixarFigura();
 		m_tauler.inserirFigura(m_figuraActual);
 	}
 

@@ -64,6 +64,7 @@ private:
     int m_posicioActual[2]; //array que guarda les coordenades del centre de la figura dins del tauler, primera posició: fila, segona posició: columna
     int m_formaActual;  //0 – 3, segons ordre dels girs en sentit horari a la descripció de les figures (pàgina 8 del pwp de la 1a part)
     bool m_formaActualEnMatriu[MAX_ALCADA][MAX_AMPLADA];    //matriu que guarda la forma de la figura, true = hi ha peça, false = no hi ha
+    
     void transposarMatriu(int nCasMax);
     void invertirColumnes(int nCasMax);
     void invertirFiles(int nCasMax);
