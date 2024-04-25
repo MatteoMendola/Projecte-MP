@@ -45,8 +45,7 @@ void Tauler::inserirFigura(const Figura& f)
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
-	int fila = 0;
-	int columna = 0;
+	int fila = 0, columna = 0;
 	ColorFigura color = f.getColor();
 
 	calcularPosicioTauler(nCasMax, fila, columna, f);
@@ -66,8 +65,7 @@ void Tauler::eliminarFigura(const Figura& f)
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
-	int fila = 0;
-	int columna = 0;
+	int fila = 0, columna = 0;
 
 	calcularPosicioTauler(nCasMax, fila, columna, f);
 
@@ -86,17 +84,15 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)	//afegir comentaris expli
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
-	int fila = 0;
-	int columna = 0;
-
+	int fila = 0, columna = 0;
 	calcularPosicioTauler(nCasMax, fila, columna, f);
 
 	int i = 0, j = 0;
 	bool aux = true;
 
-	while (i < nCasMax && aux)	//pensar com fer aquesta part més eficient
+	if (f.getTipus() != FIGURA_I)
 	{
-		if (i != 3)
+		while (i < nCasMax && aux)
 		{
 			while (j < nCasMax && aux)
 			{
@@ -108,28 +104,32 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)	//afegir comentaris expli
 							aux = false;
 					}
 				}
-
 				j++;
 			}
+
+			j = 0;
+			i++;
 		}
-		else
+	}
+	else    //figura "I"
+		if (f.getFormaAct() == 0 || f.getFormaAct() == 2)	//la "I" està en horitzontal
 		{
+			int filaI = f.getPosActFil();
+
 			while (j < nCasMax && aux)
 			{
-				if (matriuAux[i][j])
-				{
-					if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE)
-							aux = false;
-				}
-
+				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE)
+					aux = false;
 				j++;
 			}
 		}
-		
+		else    //la "I" està en vertical
+		{
+			int columnaI = f.getPosActCol();
 
-		j = 0;
-		i++;
-	}
+			if (m_tauler[fila + 4][columnaI] != COLOR_NEGRE)
+				aux = false;
+		}
 
 	return aux;
 }

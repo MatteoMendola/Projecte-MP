@@ -92,6 +92,8 @@ void Joc::inicialitza(const string& nomFitxer)
 
 bool Joc::giraFigura(DireccioGir direccio)
 {
+	//quan es gira, en el cas de la I, s'ha de modificar la posició  del centre
+
 	return false;
 }
 
