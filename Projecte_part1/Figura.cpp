@@ -206,26 +206,26 @@ void Figura::modificarCentreFiguraI(DireccioGir dir)
 	case GIR_HORARI:
 		switch (m_formaActual)
 		{
-		case 0: m_posicioActual[0]++;
+		case 0: m_posicioActual[1]++;
 			break;
-		case 1: m_posicioActual[1]--;
+		case 1: m_posicioActual[0]++;
 			break;
-		case 2: m_posicioActual[0]--;
+		case 2: m_posicioActual[1]--;
 			break;
-		case 3: m_posicioActual[1]++;
+		case 3: m_posicioActual[0]--;
 			break;
 		}
 		break;
 	case GIR_ANTI_HORARI:
 		switch (m_formaActual)
 		{
-		case 0: m_posicioActual[1]--;
+		case 0: m_posicioActual[0]--;
 			break;
-		case 1: m_posicioActual[0]--;
+		case 1: m_posicioActual[1]++;
 			break;
-		case 2: m_posicioActual[1]++;
+		case 2: m_posicioActual[0]++;
 			break;
-		case 3: m_posicioActual[0]++;
+		case 3: m_posicioActual[1]--;
 			break;
 		}
 		break;
