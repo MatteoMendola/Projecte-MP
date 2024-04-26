@@ -90,11 +90,25 @@ void Joc::inicialitza(const string& nomFitxer)
 	}
 }
 
-bool Joc::giraFigura(DireccioGir direccio)
+bool Joc::giraFigura(DireccioGir direccio)	//afegir explicacions
 {
-	//quan es gira, en el cas de la I, s'ha de modificar la posició  del centre
+	bool valid = false;
 
-	return false;
+	if (m_figuraActual.getTipus() != FIGURA_O)
+	{
+		valid = m_tauler.comprovarLimitsGir(direccio, m_figuraActual);
+
+		if (valid)
+		{
+			m_tauler.eliminarFigura(m_figuraActual);
+			m_figuraActual.girarFigura(direccio);
+			if (m_figuraActual.getTipus() == FIGURA_I)
+				m_figuraActual.modificarCentreFiguraI(direccio);
+			m_tauler.inserirFigura(m_figuraActual);
+		}
+	}
+	
+	return valid;
 }
 
 bool Joc::mouFigura(int dirX)

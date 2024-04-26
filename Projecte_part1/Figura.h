@@ -58,6 +58,7 @@ public:
     void moureLateralment(int dirX); //-1 esq, +1 dreta
     void baixarFigura() { m_posicioActual[0]++; }
     void girarFigura(DireccioGir dir);
+    void modificarCentreFiguraI(DireccioGir dir);
 private:
     ColorFigura m_color;
     TipusFigura m_tipus;

@@ -232,3 +232,70 @@ bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com opt
 
 	return aux;
 }
+
+bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacions
+{
+	bool aux = true;
+	int fila = f.getPosActFil(), columna = f.getPosActCol(), forma = f.getFormaAct();
+	TipusFigura tipus = f.getTipus();
+
+	if ((forma == 0 && fila == (MAX_FILA - 1)) || (tipus == FIGURA_I && forma == 0 && fila == 0))
+		aux = false;
+	else
+		if ((forma == 1 && columna == 0) || (tipus == FIGURA_I && forma == 1 && columna == (MAX_COL - 1)))
+			aux = false;
+		else
+			if ((forma == 2 && fila == 0) || (tipus == FIGURA_I && forma == 2 && fila == (MAX_FILA - 1)))
+				aux = false;
+			else
+				if ((forma == 3 && columna == (MAX_COL - 1)) || (tipus == FIGURA_I && forma == 3 && columna == 0))
+					aux = false;
+				else
+				{
+					int nCasMax = f.nombreCaselles(tipus);
+					eliminarFigura(f);
+					f.girarFigura(dir);
+					if (tipus == FIGURA_I)
+						f.modificarCentreFiguraI(dir);
+					bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+					f.getMatriuFormaAct(matriuAux);
+
+					fila = 0, columna = 0;
+					calcularPosicioTauler(nCasMax, fila, columna, f);
+					int i = 0, j = 0;
+
+					while (i < nCasMax && aux)
+					{
+						while (j < nCasMax && aux)
+						{
+							if (matriuAux[i][j])
+							{
+								if (m_tauler[fila + i][columna + j] != COLOR_NEGRE)
+									aux = false;
+							}
+							j++;
+						}
+
+						j = 0;
+						i++;
+					}
+
+					switch (dir)
+					{
+					case GIR_HORARI:
+						f.girarFigura(GIR_ANTI_HORARI);
+						if (tipus == FIGURA_I)
+							f.modificarCentreFiguraI(GIR_ANTI_HORARI);
+						break;
+					case GIR_ANTI_HORARI:
+						f.girarFigura(GIR_HORARI);
+						if (tipus == FIGURA_I)
+							f.modificarCentreFiguraI(GIR_HORARI);
+						break;
+					}
+
+					inserirFigura(f);
+				}
+
+	return aux;
+}
