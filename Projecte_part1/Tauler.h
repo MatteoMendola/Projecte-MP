@@ -18,6 +18,8 @@ public:
 	bool comprovarLimitsInferiors(const Figura& f);	//si retorna true, la figura pot baixar, si retorna false, no
 	bool comprovarLimitsLaterals(int dirX, const Figura& f);	//si retorna true, la figura es pot moure, si retorna false, no
 	bool comprovarLimitsGir(DireccioGir dir, Figura& f);	//si retorna true, la figura es pot girar, si retorna false, no
+	int eliminaFiles(bool filesEliminadesArray[]);
+	void baixarFiles(bool filesEliminadesArray[]);
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
 	

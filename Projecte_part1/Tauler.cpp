@@ -380,3 +380,59 @@ bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacion
 
 	return aux;
 }
+
+int Tauler::eliminaFiles(bool filesEliminadesArray[])
+{
+	int filesEliminades = 0, j = 0;
+	bool casellaNegre = false;
+
+	for (int i = 0; i < MAX_FILA; i++)
+	{
+		while (j < MAX_COL && !casellaNegre)
+		{
+			if (m_tauler[i][j] == COLOR_NEGRE)
+				casellaNegre = true;
+
+			j++;
+		}
+
+		if (!casellaNegre)
+		{
+			for (j = 0; j < MAX_COL; j++)
+				m_tauler[i][j] = COLOR_NEGRE;
+			filesEliminades++;
+			filesEliminadesArray[i] = true;
+		}
+		else
+		{
+			filesEliminadesArray[i] = false;
+			casellaNegre = false;
+		}
+
+		j = 0;
+	}
+
+	return filesEliminades;
+}
+
+void Tauler::baixarFiles(bool filesEliminadesArray[])
+{
+	int cont = 0;
+
+	for (int i = MAX_FILA - 1; i >= 0; i--)
+	{
+		if (filesEliminadesArray[i])
+		{
+			for (int fila = i; fila > cont; fila--)
+			{
+				for (int j = 0; j < MAX_COL; j++)
+					m_tauler[fila][j] = m_tauler[fila - 1][j];
+			}
+
+			for (int j = 0; j < MAX_COL; j++)
+				m_tauler[cont][j] = COLOR_NEGRE;
+
+			cont++;
+		}
+	}
+}
