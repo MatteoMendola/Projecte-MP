@@ -135,7 +135,7 @@ int Joc::baixaFigura()
 	bool filesEliminadesArray[MAX_ALCADA];
 	int filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray, nCasMax, m_figuraActual);
 	if (filesEliminades > 0)
-		m_tauler.baixarFiles(filesEliminadesArray, nCasMax, fila);
+		m_tauler.baixarFiles(filesEliminadesArray, nCasMax, fila, m_figuraActual);
 		
 	return filesEliminades;
 }

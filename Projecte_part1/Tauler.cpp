@@ -423,7 +423,7 @@ int Tauler::eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f)
 	return filesEliminades;
 }
 
-void Tauler::baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigura)
+void Tauler::baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigura, Figura& f)
 {
 	int cont = 0;
 	
@@ -431,6 +431,8 @@ void Tauler::baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigu
 	{
 		if (filesEliminadesArray[i])
 		{
+			f.baixarFigura();
+
 			for (int aux = filaFigura + i; aux > 0; aux--)
 			{
 				for (int j = 0; j < MAX_COL; j++)
