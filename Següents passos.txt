@@ -1,8 +1,12 @@
--mou figura funciona correctament, pensar en com optimitzar-la (la part de comprovar els límits laterals) (codi massa llarg).
--afegir explicacions de la funció 'comprovarLimitsGir'.
+-mirar perquè fallen els tests de eliminar files.
+-mirar perquè els tests amb lletra 'I' fallen.
+-afegir explicacions de la funció 'comprovarLimitsGir' de tauler.cpp.
 -afegir explicacions de la funció 'giraFigura' de Joc.cpp.
--afegir explicacions de la funció 'inserirFigura'.
+-afegir explicacions de la funció 'inserirFigura' a tauler.cpp.
+-afegir explicacions funció 'baixarFigura' a joc.cpp.
+-afegir explicacions funció 'eliminaFiles' i 'baixaFiles' a tauler.cpp.
+-mou figura funciona correctament, pensar en com optimitzar-la (la part de comprovar els límits laterals) (codi massa llarg).
 -mirar si es podria fer una funció que es digui comprovaLimits que comprovi tots els límits del tauler (superior, inferior i laterals), ja que els comprovo per separat diverses vegades en les funcions inserirFigura, comprovaLimitsLaterlals, comprovaLimitsInferiors, comprovaLimitsGir.
--fer la funcionalitat d'eliminar files si estan plenes.
--constructor tauler? constructor joc?
 -a tauler.h, mirar si algunes funcions de comprovarLimits poden ser const.
+-funcions per baixar y moure les figures fa falta eliminar y inserir de nou? es podria moure directament desde la funció tauler?
+-constructor tauler? constructor joc?
