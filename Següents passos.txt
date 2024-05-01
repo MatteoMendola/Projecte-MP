@@ -1,4 +1,3 @@
--mirar perquè fallen els tests de eliminar files.
 -mirar perquè els tests amb lletra 'I' fallen.
 -afegir explicacions de la funció 'comprovarLimitsGir' de tauler.cpp.
 -afegir explicacions de la funció 'giraFigura' de Joc.cpp.
