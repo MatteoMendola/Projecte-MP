@@ -181,19 +181,12 @@ void Tauler::baixaFigura(Figura& f)
 		for (int j = 0; j < nCasMax; j++)
 		{
 			if (matriuAux[i][j])
+			{
 				m_tauler[fila + i + 1][columna + j] = m_tauler[fila + i][columna + j];
+				m_tauler[fila + i][columna + j] = COLOR_NEGRE;
+			}
 		}
 	}
-
-
-	if ((f.getFormaAct() == 2 && f.getTipus() != FIGURA_I) || (f.getTipus() == FIGURA_I && f.getFormaAct() == 0))
-		fila++;
-	else
-		if (f.getTipus() == FIGURA_I && f.getFormaAct() == 2)
-			fila += 2;
-
-	for (int j = 0; j < nCasMax; j++)
-		m_tauler[fila][columna + j] = COLOR_NEGRE;
 
 	f.baixarFigura();
 }
@@ -420,6 +413,8 @@ int Tauler::eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f)
 				casellaNegre = false;
 			}
 		}
+		else
+			filesEliminadesArray[i] = false;
 
 		j = 0;
 	}
