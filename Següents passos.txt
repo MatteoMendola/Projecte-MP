@@ -5,3 +5,4 @@
 -mirar si es podria fer una funció que es digui comprovaLimits que comprovi tots els límits del tauler (superior, inferior i laterals), ja que els comprovo per separat diverses vegades en les funcions inserirFigura, comprovaLimitsLaterlals, comprovaLimitsInferiors, comprovaLimitsGir.
 -fer la funcionalitat d'eliminar files si estan plenes.
 -constructor tauler? constructor joc?
+-a tauler.h, mirar si algunes funcions de comprovarLimits poden ser const.
