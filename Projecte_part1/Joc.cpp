@@ -127,23 +127,17 @@ bool Joc::mouFigura(int dirX)
 
 int Joc::baixaFigura()
 {
-	int filesEliminades = 0;
-
 	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
 		m_tauler.baixaFigura(m_figuraActual);
-	
-	bool filesEliminadesArray[MAX_FILA], aux = 0;
-	filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray);
-	
-	while (filesEliminades > aux)
-	{
-		aux = filesEliminades;
-		m_tauler.baixarFiles(filesEliminadesArray);
-		filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray);
-		filesEliminades += aux;
-	}
-	
-	return 0;
+
+	int nCasMax = m_figuraActual.nombreCaselles(m_figuraActual.getTipus()), fila = 0, noUse = 0;
+	m_figuraActual.calcularPosicioTauler(fila, noUse);
+	bool filesEliminadesArray[MAX_ALCADA];
+	int filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray, nCasMax, m_figuraActual);
+	if (filesEliminades > 0)
+		m_tauler.baixarFiles(filesEliminadesArray, nCasMax, fila);
+		
+	return filesEliminades;
 }
 
 void Joc::escriuTauler(const string& nomFitxer)

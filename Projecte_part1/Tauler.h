@@ -19,14 +19,10 @@ public:
 	void baixaFigura(Figura& f);
 	bool comprovarLimitsLaterals(int dirX, const Figura& f);	//si retorna true, la figura es pot moure, si retorna false, no
 	bool comprovarLimitsGir(DireccioGir dir, Figura& f);	//si retorna true, la figura es pot girar, si retorna false, no
-	int eliminaFiles(bool filesEliminadesArray[]);
-	void baixarFiles(bool filesEliminadesArray[]);
+	int eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f);
+	void baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigura);
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
-	
-	void calcularPosicioTauler(int nCasMax, int& fila, int& columna, const Figura& f) const;	//calcula la primera posició del tauler on comença la figura (cantonada
-																								//superior esquerra) a partir del centre de la figura depenent del tipus
-																								//de figura que sigui
 };
 
 #endif

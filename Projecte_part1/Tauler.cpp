@@ -1,44 +1,5 @@
 #include "Tauler.h"
 
-void Tauler::calcularPosicioTauler(int nCasMax, int& fila, int& columna, const Figura& f) const
-{
-	fila = f.getPosActFil();
-	columna = f.getPosActCol();
-
-	switch (nCasMax)
-	{
-	case 2:
-		break;
-	case 3:
-		fila -= 1;
-		columna -= 1;
-		break;
-	case 4:
-		if (f.getFormaAct() == 0)
-		{
-			fila -= 1;
-			columna -= 2;
-		}
-		else
-			if (f.getFormaAct() == 1)
-			{
-				fila -= 2;
-				columna -= 2;
-			}
-			else
-				if (f.getFormaAct() == 2)
-				{
-					fila -= 2;
-					columna -= 1;
-				}
-				else
-				{
-					fila -= 1;
-					columna -= 1;
-				}
-	}
-}
-
 void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
 {
 	bool esPotInserir = true;
@@ -100,7 +61,7 @@ void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
 	fila = 0, columna = 0;
-	calcularPosicioTauler(nCasMax, fila, columna, f);
+	f.calcularPosicioTauler(fila, columna);
 	int i = 0, j = 0;
 
 	while (i < nCasMax && esPotInserir)
@@ -140,7 +101,7 @@ void Tauler::eliminarFigura(const Figura& f)
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
 	int fila = 0, columna = 0;
-	calcularPosicioTauler(nCasMax, fila, columna, f);
+	f.calcularPosicioTauler(fila, columna);
 
 	for (int i = 0; i < nCasMax; i++)
 	{
@@ -158,7 +119,7 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
 	int fila = 0, columna = 0;
-	calcularPosicioTauler(nCasMax, fila, columna, f);
+	f.calcularPosicioTauler(fila, columna);
 
 	int i = 0, j = 0;
 	bool aux = true;
@@ -213,7 +174,7 @@ void Tauler::baixaFigura(Figura& f)
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
 	int fila = 0, columna = 0;
-	calcularPosicioTauler(nCasMax, fila, columna, f);
+	f.calcularPosicioTauler(fila, columna);
 
 	for (int i = nCasMax - 1; i >= 0; i--)
 	{
@@ -224,6 +185,16 @@ void Tauler::baixaFigura(Figura& f)
 		}
 	}
 
+
+	if ((f.getFormaAct() == 2 && f.getTipus() != FIGURA_I) || (f.getTipus() == FIGURA_I && f.getFormaAct() == 0))
+		fila++;
+	else
+		if (f.getTipus() == FIGURA_I && f.getFormaAct() == 2)
+			fila += 2;
+
+	for (int j = 0; j < nCasMax; j++)
+		m_tauler[fila][columna + j] = COLOR_NEGRE;
+
 	f.baixarFigura();
 }
 
@@ -233,7 +204,7 @@ bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com opt
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	f.getMatriuFormaAct(matriuAux);
 	int fila = 0, columna = 0;
-	calcularPosicioTauler(nCasMax, fila, columna, f);
+	f.calcularPosicioTauler(fila, columna);
 
 	int i = 0, j = 0;
 	bool aux = true;
@@ -357,7 +328,7 @@ bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacion
 					f.getMatriuFormaAct(matriuAux);
 
 					fila = 0, columna = 0;
-					calcularPosicioTauler(nCasMax, fila, columna, f);
+					f.calcularPosicioTauler(fila, columna);
 					int i = 0, j = 0;
 
 					if (fila < 0)
@@ -401,58 +372,78 @@ bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacion
 	return aux;
 }
 
-int Tauler::eliminaFiles(bool filesEliminadesArray[])
+int Tauler::eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f)
 {
 	int filesEliminades = 0, j = 0;
-	bool casellaNegre = false;
+	bool casellaNegre = false, hiHaPeça = false;
 
-	for (int i = 0; i < MAX_FILA; i++)
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	f.getMatriuFormaAct(matriuAux);
+	int fila = 0, columna = 0;
+	f.calcularPosicioTauler(fila, columna);
+
+	for (int i = 0; i < longitud; i++)
 	{
-		while (j < MAX_COL && !casellaNegre)
+		while (j < longitud && !hiHaPeça)
 		{
-			if (m_tauler[i][j] == COLOR_NEGRE)
-				casellaNegre = true;
+			if (matriuAux[i][j])
+				hiHaPeça = true;
 
 			j++;
 		}
 
-		if (!casellaNegre)
+		if (hiHaPeça)
 		{
-			for (j = 0; j < MAX_COL; j++)
-				m_tauler[i][j] = COLOR_NEGRE;
-			filesEliminades++;
-			filesEliminadesArray[i] = true;
-		}
-		else
-		{
-			filesEliminadesArray[i] = false;
-			casellaNegre = false;
+			j = 0;
+			hiHaPeça = false;
+
+			while (j < MAX_COL && !casellaNegre)
+			{
+				if (m_tauler[fila + i][j] == COLOR_NEGRE)
+					casellaNegre = true;
+
+				j++;
+			}
+
+			if (!casellaNegre)
+			{
+				for (j = 0; j < MAX_COL; j++)
+					m_tauler[fila + i][j] = COLOR_NEGRE;
+				for (j = 0; j < longitud; j++)
+					matriuAux[i][j] = false;
+				filesEliminades++;
+				filesEliminadesArray[i] = true;
+			}
+			else
+			{
+				filesEliminadesArray[i] = false;
+				casellaNegre = false;
+			}
 		}
 
 		j = 0;
 	}
 
+	f.setMatriuFormaAct(matriuAux, longitud);
 	return filesEliminades;
 }
 
-void Tauler::baixarFiles(bool filesEliminadesArray[])
+void Tauler::baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigura)
 {
 	int cont = 0;
-
-	for (int i = MAX_FILA - 1; i >= 0; i--)
+	
+	for (int i = 0; i < longitud; i++)
 	{
 		if (filesEliminadesArray[i])
 		{
-			for (int fila = i; fila > cont; fila--)
+			for (int aux = filaFigura + i; aux > 0; aux--)
 			{
 				for (int j = 0; j < MAX_COL; j++)
-					m_tauler[fila][j] = m_tauler[fila - 1][j];
+					m_tauler[aux][j] = m_tauler[aux - 1][j];
 			}
 
 			for (int j = 0; j < MAX_COL; j++)
 				m_tauler[cont][j] = COLOR_NEGRE;
-
-			cont++;
 		}
 	}
 }

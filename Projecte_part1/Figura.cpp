@@ -23,6 +23,15 @@ void Figura::getMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA]) con
 	}
 }
 
+void Figura::setMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA], int longitud)
+{
+	for (int i = 0; i < longitud; i++)
+	{
+		for (int j = 0; j < longitud; j++)
+			m_formaActualEnMatriu[i][j] = matriuFormaAct[i][j];
+	}
+}
+
 void Figura::inicialitzarMatriuAuxiliar()
 {
 	for (int i = 0; i < MAX_ALCADA; i++)	//la inicialitzem tota a false ja que, com els tests es fan seguits, es guarden els true dels tests anteriors
@@ -229,5 +238,44 @@ void Figura::modificarCentreFiguraI(DireccioGir dir)
 			break;
 		}
 		break;
+	}
+}
+
+void Figura::calcularPosicioTauler(int& fila, int& columna) const
+{
+	fila = m_posicioActual[0];
+	columna = m_posicioActual[1];
+
+	switch (nombreCaselles(m_tipus))
+	{
+	case 2:
+		break;
+	case 3:
+		fila -= 1;
+		columna -= 1;
+		break;
+	case 4:
+		if (m_formaActual == 0)
+		{
+			fila -= 1;
+			columna -= 2;
+		}
+		else
+			if (m_formaActual == 1)
+			{
+				fila -= 2;
+				columna -= 2;
+			}
+			else
+				if (m_formaActual == 2)
+				{
+					fila -= 2;
+					columna -= 1;
+				}
+				else
+				{
+					fila -= 1;
+					columna -= 1;
+				}
 	}
 }

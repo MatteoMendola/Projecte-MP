@@ -52,6 +52,7 @@ public:
     void setPosActFil(int fila) { m_posicioActual[0] = fila; }
     void setPosActCol(int col) { m_posicioActual[1] = col; }
     void setFormaAct(int formaAct) { m_formaActual = formaAct; }
+    void setMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA], int longitud);
 
     void inicialitzarMatriuAuxiliar();  //s'inicialitza la matriu auxiliar sense girs
     int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
@@ -59,6 +60,9 @@ public:
     void baixarFigura() { m_posicioActual[0]++; }
     void girarFigura(DireccioGir dir);
     void modificarCentreFiguraI(DireccioGir dir);
+    void calcularPosicioTauler(int& fila, int& columna) const;	//calcula la primera posició del tauler on comença la figura (cantonada
+                                                                                                //superior esquerra) a partir del centre de la figura depenent del tipus
+                                                                                                //de figura que sigui
 private:
     ColorFigura m_color;
     TipusFigura m_tipus;
