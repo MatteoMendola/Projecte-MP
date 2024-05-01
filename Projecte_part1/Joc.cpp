@@ -130,25 +130,19 @@ int Joc::baixaFigura()
 	int filesEliminades = 0;
 
 	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
+		m_tauler.baixaFigura(m_figuraActual);
+	
+	bool filesEliminadesArray[MAX_FILA], aux = 0;
+	filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray);
+	
+	while (filesEliminades > aux)
 	{
-		m_tauler.eliminarFigura(m_figuraActual);
-		m_figuraActual.baixarFigura();
-		m_tauler.inserirFigura(m_figuraActual);
-	}
-	else
-	{
-		bool filesEliminadesArray[MAX_FILA], aux = 0;
+		aux = filesEliminades;
+		m_tauler.baixarFiles(filesEliminadesArray);
 		filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray);
-
-		while (filesEliminades > aux)
-		{
-			aux = filesEliminades;
-			m_tauler.baixarFiles(filesEliminadesArray);
-			filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray);
-			filesEliminades += aux;
-		}
+		filesEliminades += aux;
 	}
-
+	
 	return 0;
 }
 

@@ -16,6 +16,7 @@ public:
 	void inserirFigura(const Figura& f);
 	void eliminarFigura(const Figura& f);
 	bool comprovarLimitsInferiors(const Figura& f);	//si retorna true, la figura pot baixar, si retorna false, no
+	void baixaFigura(Figura& f);
 	bool comprovarLimitsLaterals(int dirX, const Figura& f);	//si retorna true, la figura es pot moure, si retorna false, no
 	bool comprovarLimitsGir(DireccioGir dir, Figura& f);	//si retorna true, la figura es pot girar, si retorna false, no
 	int eliminaFiles(bool filesEliminadesArray[]);

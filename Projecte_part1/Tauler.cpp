@@ -207,6 +207,26 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 	return aux;
 }
 
+void Tauler::baixaFigura(Figura& f)
+{
+	int nCasMax = f.nombreCaselles(f.getTipus());
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	f.getMatriuFormaAct(matriuAux);
+	int fila = 0, columna = 0;
+	calcularPosicioTauler(nCasMax, fila, columna, f);
+
+	for (int i = nCasMax - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < nCasMax; j++)
+		{
+			if (matriuAux[i][j])
+				m_tauler[fila + i + 1][columna + j] = m_tauler[fila + i][columna + j];
+		}
+	}
+
+	f.baixarFigura();
+}
+
 bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com optimitzar aquesta funció
 {
 	int nCasMax = f.nombreCaselles(f.getTipus());
