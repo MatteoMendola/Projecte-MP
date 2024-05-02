@@ -249,7 +249,6 @@ void Figura::calcularPosicioTauler(int& fila, int& columna) const
 	switch (nombreCaselles(m_tipus))
 	{
 	case 2:
-		break;
 	case 3:
 		fila -= 1;
 		columna -= 1;

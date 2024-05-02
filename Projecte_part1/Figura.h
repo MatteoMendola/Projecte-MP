@@ -61,8 +61,8 @@ public:
     void girarFigura(DireccioGir dir);
     void modificarCentreFiguraI(DireccioGir dir);
     void calcularPosicioTauler(int& fila, int& columna) const;	//calcula la primera posició del tauler on comença la figura (cantonada
-                                                                                                //superior esquerra) a partir del centre de la figura depenent del tipus
-                                                                                                //de figura que sigui
+                                                                //superior esquerra) a partir del centre de la figura depenent del tipus
+                                                                //de figura que sigui
 private:
     ColorFigura m_color;
     TipusFigura m_tipus;
