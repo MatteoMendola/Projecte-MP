@@ -3,87 +3,36 @@
 void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
 {
 	bool esPotInserir = true;
-	int fila = f.getPosActFil(), columna = f.getPosActCol(), forma = f.getFormaAct();
-	
-	switch (f.getTipus())
-	{
-	case FIGURA_O:
-		if (fila < 0 || fila > MAX_FILA - 1 || columna < 0 || columna > MAX_COL - 1)
-			esPotInserir = false;
-		break;
-	case FIGURA_I:
-		if (forma == 0 || forma == 2)
-		{
-			if (fila < 0 || fila > MAX_FILA - 1)
-				esPotInserir = false;
-			if ((forma == 0 && (columna - 2 < 0 || columna + 1 > MAX_COL - 1)) || (forma == 2 && (columna - 1 < 0 || columna + 2 > MAX_COL - 1)))
-				esPotInserir = false;
-		}
-		else
-		{
-			if (columna < 0 || columna > MAX_COL - 1)
-				esPotInserir = false;
-			if ((forma == 1 && (fila - 2 < 0 || fila + 1 > MAX_FILA - 1)) || (forma == 3 && (fila - 1 < 0 || fila + 2 > MAX_FILA - 1)))
-				esPotInserir = false;
-		}
-		break;
-	case FIGURA_T:
-	case FIGURA_L:
-	case FIGURA_J:
-	case FIGURA_Z:
-	case FIGURA_S:
-		if (forma == 0)
-		{
-			if (fila - 1 < 0 || fila > MAX_FILA - 1 || columna - 1 < 0 || columna + 1 > MAX_COL - 1)
-				esPotInserir = false;
-		}
-		else
-			if (forma == 1)
-			{
-				if (fila - 1 < 0 || fila + 1 > MAX_FILA - 1 || columna < 0 || columna + 1 > MAX_COL - 1)
-					esPotInserir = false;
-			}
-			else
-				if (forma == 2)
-				{
-					if (fila < 0 || fila + 1 > MAX_FILA - 1 || columna - 1 < 0 || columna + 1 > MAX_COL - 1)
-						esPotInserir = false;
-				}
-				else    //forma == 3
-				{
-					if (fila - 1 < 0 || fila + 1 > MAX_FILA - 1 || columna - 1 < 0 || columna > MAX_COL - 1)
-						esPotInserir = false;
-				}
-		break;
-	}
-
-	int nCasMax = f.nombreCaselles(f.getTipus());
-	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
-	f.getMatriuFormaAct(matriuAux);
-	fila = 0, columna = 0;
+	int fila = 0, columna = 0;
 	f.calcularPosicioTauler(fila, columna);
-	int i = 0, j = 0;
-
-	while (i < nCasMax && esPotInserir)
-	{
-		while (j < nCasMax && esPotInserir)
-		{
-			if (matriuAux[i][j])
-			{
-				if (m_tauler[fila + i][columna + j] != COLOR_NEGRE)
-					esPotInserir = false;
-			}
-			j++;
-		}
-
-		j = 0;
-		i++;
-	}
+	
+	if (fila < 0 || fila > MAX_FILA - 1 || columna < 0 || columna > MAX_COL - 1)
+		esPotInserir = false;
 
 	if (esPotInserir)
 	{
-		ColorFigura color = f.getColor();
+		int nCasMax = f.nombreCaselles(f.getTipus());
+		bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+		f.getMatriuFormaAct(matriuAux);
+		int i = 0, j = 0;
 
+		while (i < nCasMax && esPotInserir)
+		{
+			while (j < nCasMax && esPotInserir)
+			{
+				if (matriuAux[i][j])
+				{
+					if (m_tauler[fila + i][columna + j] != COLOR_NEGRE)
+						esPotInserir = false;
+				}
+				j++;
+			}
+
+			j = 0;
+			i++;
+		}
+
+		ColorFigura color = f.getColor();
 		for (i = 0; i < nCasMax; i++)
 		{
 			for (j = 0; j < nCasMax; j++)
@@ -293,41 +242,75 @@ bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com opt
 	return aux;
 }
 
+void Tauler::mouFigura(int dirX, Figura& f)
+{
+	int nCasMax = f.nombreCaselles(f.getTipus());
+	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
+	f.getMatriuFormaAct(matriuAux);
+	int fila = 0, columna = 0;
+	f.calcularPosicioTauler(fila, columna);
+
+	switch (dirX)
+	{
+	case 1:
+		for (int j = nCasMax - 1; j >= 0; j--)
+		{
+			for (int i = 0; i < nCasMax; i++)
+			{
+				if (matriuAux[i][j])
+				{
+					m_tauler[fila + i][columna + j + 1] = m_tauler[fila + i][columna + j];
+					m_tauler[fila + i][columna + j] = COLOR_NEGRE;
+				}
+			}
+		}
+		break;
+	case -1:
+		for (int j = 0; j < nCasMax; j++)
+		{
+			for (int i = 0; i < nCasMax; i++)
+			{
+				if (matriuAux[i][j])
+				{
+					m_tauler[fila + i][columna + j - 1] = m_tauler[fila + i][columna + j];
+					m_tauler[fila + i][columna + j] = COLOR_NEGRE;
+				}
+			}
+		}
+		break;
+	}
+
+	f.moureLateralment(dirX);
+}
+
 bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacions
 {
 	bool aux = true;
 	int fila = f.getPosActFil(), columna = f.getPosActCol(), forma = f.getFormaAct();
 	TipusFigura tipus = f.getTipus();
 
-	if ((forma == 0 && fila == (MAX_FILA - 1)) || (tipus == FIGURA_I && forma == 0 && fila == 0))
+	if ((forma == 0 && fila == (MAX_FILA - 1)) || (tipus == FIGURA_I && forma == 0 && (fila == 0 || fila < MAX_FILA - 2)))
 		aux = false;
 	else
-		if ((forma == 1 && columna == 0) || (tipus == FIGURA_I && forma == 1 && columna == (MAX_COL - 1)))
+		if ((forma == 1 && columna == 0) || (tipus == FIGURA_I && forma == 1 && (columna - 2 >= 0 || columna < MAX_COL - 1)))
 			aux = false;
 		else
-			if ((forma == 2 && fila == 0) || (tipus == FIGURA_I && forma == 2 && fila == (MAX_FILA - 1)))
+			if ((forma == 2 && fila == 0) || (tipus == FIGURA_I && forma == 2 && (fila - 2 >= 0 || fila < MAX_FILA - 1)))
 				aux = false;
 			else
-				if ((forma == 3 && columna == (MAX_COL - 1)) || (tipus == FIGURA_I && forma == 3 && columna == 0))
+				if ((forma == 3 && columna == (MAX_COL - 1)) || (tipus == FIGURA_I && forma == 3 && (columna == 0 || columna < MAX_COL - 2)))
 					aux = false;
 				else
 				{
 					int nCasMax = f.nombreCaselles(tipus);
 					eliminarFigura(f);
 					f.girarFigura(dir);
-					if (tipus == FIGURA_I)
-						f.modificarCentreFiguraI(dir);
 					bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 					f.getMatriuFormaAct(matriuAux);
 
 					fila = 0, columna = 0;
 					f.calcularPosicioTauler(fila, columna);
 					int i = 0, j = 0;
-
-					if (fila < 0)
-						fila = 0;
-					if (columna < 0)
-						columna = 0;
 
 					while (i < nCasMax && aux)
 					{
@@ -349,13 +332,9 @@ bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacion
 					{
 					case GIR_HORARI:
 						f.girarFigura(GIR_ANTI_HORARI);
-						if (tipus == FIGURA_I)
-							f.modificarCentreFiguraI(GIR_ANTI_HORARI);
 						break;
 					case GIR_ANTI_HORARI:
 						f.girarFigura(GIR_HORARI);
-						if (tipus == FIGURA_I)
-							f.modificarCentreFiguraI(GIR_HORARI);
 						break;
 					}
 

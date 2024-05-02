@@ -102,8 +102,6 @@ bool Joc::giraFigura(DireccioGir direccio)	//afegir explicacions
 		{
 			m_tauler.eliminarFigura(m_figuraActual);
 			m_figuraActual.girarFigura(direccio);
-			if (m_figuraActual.getTipus() == FIGURA_I)
-				m_figuraActual.modificarCentreFiguraI(direccio);
 			m_tauler.inserirFigura(m_figuraActual);
 		}
 	}
@@ -116,11 +114,7 @@ bool Joc::mouFigura(int dirX)
 	bool valid = m_tauler.comprovarLimitsLaterals(dirX, m_figuraActual);
 
 	if (valid)
-	{
-		m_tauler.eliminarFigura(m_figuraActual);
-		m_figuraActual.moureLateralment(dirX);
-		m_tauler.inserirFigura(m_figuraActual);
-	}
+		m_tauler.mouFigura(dirX, m_figuraActual);
 
 	return valid;
 }

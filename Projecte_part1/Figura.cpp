@@ -188,6 +188,9 @@ void Figura::girarFigura(DireccioGir dir)
 		int nCasMax = nombreCaselles(m_tipus);
 		transposarMatriu(nCasMax);
 
+		if (m_tipus == FIGURA_I)
+			modificarCentreFiguraI(dir);
+
 		switch (dir)
 		{
 		case GIR_HORARI:
@@ -228,13 +231,13 @@ void Figura::modificarCentreFiguraI(DireccioGir dir)
 	case GIR_ANTI_HORARI:
 		switch (m_formaActual)
 		{
-		case 0: m_posicioActual[0]--;
+		case 0: m_posicioActual[0]++;
 			break;
-		case 1: m_posicioActual[1]++;
+		case 1: m_posicioActual[1]--;
 			break;
-		case 2: m_posicioActual[0]++;
+		case 2: m_posicioActual[0]--;
 			break;
-		case 3: m_posicioActual[1]--;
+		case 3: m_posicioActual[1]++;
 			break;
 		}
 		break;
@@ -257,23 +260,23 @@ void Figura::calcularPosicioTauler(int& fila, int& columna) const
 		if (m_formaActual == 0)
 		{
 			fila -= 1;
-			columna -= 2;
+			columna -= 1;
 		}
 		else
 			if (m_formaActual == 1)
 			{
-				fila -= 2;
+				fila -= 1;
 				columna -= 2;
 			}
 			else
 				if (m_formaActual == 2)
 				{
 					fila -= 2;
-					columna -= 1;
+					columna -= 2;
 				}
 				else
 				{
-					fila -= 1;
+					fila -= 2;
 					columna -= 1;
 				}
 	}

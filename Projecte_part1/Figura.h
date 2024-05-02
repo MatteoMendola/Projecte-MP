@@ -59,7 +59,6 @@ public:
     void moureLateralment(int dirX); //-1 esq, +1 dreta
     void baixarFigura() { m_posicioActual[0]++; }
     void girarFigura(DireccioGir dir);
-    void modificarCentreFiguraI(DireccioGir dir);
     void calcularPosicioTauler(int& fila, int& columna) const;	//calcula la primera posició del tauler on comença la figura (cantonada
                                                                 //superior esquerra) a partir del centre de la figura depenent del tipus
                                                                 //de figura que sigui
@@ -73,6 +72,7 @@ private:
     void transposarMatriu(int nCasMax);
     void invertirColumnes(int nCasMax);
     void invertirFiles(int nCasMax);
+    void modificarCentreFiguraI(DireccioGir dir);
 };
 
 #endif
