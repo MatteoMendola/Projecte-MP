@@ -1,6 +1,6 @@
 #include "Figura.h"
 
-Figura::Figura()
+void Figura::inicialitzar()
 {
 	m_color = NO_COLOR;
 	m_tipus = NO_FIGURA;

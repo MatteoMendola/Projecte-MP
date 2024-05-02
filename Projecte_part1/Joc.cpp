@@ -1,6 +1,12 @@
 #include "Joc.h"
 #include <fstream>
 
+Joc::Joc()
+{
+	m_figuraActual.inicialitzar(); 
+	m_tauler.inicialitzar();
+}
+
 TipusFigura Joc::convertirEnTipusFigura(int tipus) const
 {
 	TipusFigura t = NO_FIGURA;

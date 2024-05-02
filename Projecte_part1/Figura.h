@@ -38,7 +38,8 @@ typedef enum
 class Figura
 {
 public:
-    Figura();
+    Figura() { inicialitzar(); }
+    void inicialitzar();
 
     ColorFigura getColor() const { return m_color; }
     TipusFigura getTipus() const { return m_tipus; }

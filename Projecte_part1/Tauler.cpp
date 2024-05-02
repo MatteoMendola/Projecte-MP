@@ -1,5 +1,14 @@
 #include "Tauler.h"
 
+void Tauler::inicialitzar()
+{
+	for (int i = 0; i < MAX_FILA; i++)
+	{
+		for (int j = 0; j < MAX_COL; j++)
+			m_tauler[i][j] = COLOR_NEGRE;
+	}
+}
+
 void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
 {
 	bool esPotInserir = true;
@@ -62,7 +71,7 @@ void Tauler::eliminarFigura(const Figura& f)
 	}
 }
 
-bool Tauler::comprovarLimitsInferiors(const Figura& f)
+bool Tauler::comprovarLimitsInferiors(const Figura& f) const
 {
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
@@ -73,46 +82,24 @@ bool Tauler::comprovarLimitsInferiors(const Figura& f)
 	int i = 0, j = 0;
 	bool aux = true;
 
-	if (f.getTipus() != FIGURA_I)
+	while (i < nCasMax && aux)	//fem una cerca en la matriu 
 	{
-		while (i < nCasMax && aux)	//fem una cerca en la matriu 
+		while (j < nCasMax && aux)
 		{
-			while (j < nCasMax && aux)
+			if (matriuAux[i][j])	//si hi ha peça
 			{
-				if (matriuAux[i][j])	//si hi ha peça
+				if (!matriuAux[i + 1][j])	//si a sota la peça no hi ha peça
 				{
-					if (!matriuAux[i + 1][j])	//si a sota la peça no hi ha peça
-					{
-						if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE || (fila + i + 1) == MAX_FILA)	//comprovar si la posició sota la peça està buida o si ens trobem a la última fila del tauler
-							aux = false;
-					}
+					if (m_tauler[fila + i + 1][columna + j] != COLOR_NEGRE || (fila + i + 1) == MAX_FILA)	//comprovar si la posició sota la peça està buida o si ens trobem a la última fila del tauler
+						aux = false;
 				}
-				j++;
 			}
-
-			j = 0;
-			i++;
+			j++;
 		}
+
+		j = 0;
+		i++;
 	}
-	else    //figura "I"
-		if (f.getFormaAct() == 0 || f.getFormaAct() == 2)	//la "I" està en horitzontal
-		{
-			int filaI = f.getPosActFil();
-
-			while (j < nCasMax && aux)	//estan totes les peces en la mateixa fila, hem de recórrer les columnes
-			{
-				if (m_tauler[filaI + 1][columna + j] != COLOR_NEGRE || (filaI + 1) == MAX_FILA)	//comprovar si la posició sota la peça està buida o si ens trobem a la última fila del tauler
-					aux = false;
-				j++;
-			}
-		}
-		else    //la "I" està en vertical
-		{
-			int columnaI = f.getPosActCol();
-
-			if (m_tauler[fila + 4][columnaI] != COLOR_NEGRE || (fila + 4) == MAX_FILA)	//estan totes les peces en la mateixa columna, només hem de comprovar que sota la última peça estigui buit o si ens trobem a la última fila del tauler
-				aux = false;
-		}
 
 	return aux;
 }
@@ -140,7 +127,7 @@ void Tauler::baixaFigura(Figura& f)
 	f.baixarFigura();
 }
 
-bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	//pensar com optimitzar aquesta funció
+bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	const //pensar com optimitzar aquesta funció
 {
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
@@ -289,16 +276,16 @@ bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacion
 	int fila = f.getPosActFil(), columna = f.getPosActCol(), forma = f.getFormaAct();
 	TipusFigura tipus = f.getTipus();
 
-	if ((forma == 0 && fila == (MAX_FILA - 1)) || (tipus == FIGURA_I && forma == 0 && (fila == 0 || fila < MAX_FILA - 2)))
+	if ((forma == 0 && fila == (MAX_FILA - 1)) || (tipus == FIGURA_I && forma == 0 && (fila == 0 || fila >= MAX_FILA - 2)))
 		aux = false;
 	else
-		if ((forma == 1 && columna == 0) || (tipus == FIGURA_I && forma == 1 && (columna - 2 >= 0 || columna < MAX_COL - 1)))
+		if ((forma == 1 && columna == 0) || (tipus == FIGURA_I && forma == 1 && (columna < 2 || columna >= MAX_COL - 1)))
 			aux = false;
 		else
-			if ((forma == 2 && fila == 0) || (tipus == FIGURA_I && forma == 2 && (fila - 2 >= 0 || fila < MAX_FILA - 1)))
+			if ((forma == 2 && fila == 0) || (tipus == FIGURA_I && forma == 2 && (fila < 2 || fila >= MAX_FILA - 1)))
 				aux = false;
 			else
-				if ((forma == 3 && columna == (MAX_COL - 1)) || (tipus == FIGURA_I && forma == 3 && (columna == 0 || columna < MAX_COL - 2)))
+				if ((forma == 3 && columna == (MAX_COL - 1)) || (tipus == FIGURA_I && forma == 3 && (columna == 0 || columna >= MAX_COL - 2)))
 					aux = false;
 				else
 				{
