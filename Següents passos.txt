@@ -1,4 +1,3 @@
--mirar perquè els tests amb lletra 'I' fallen.
 -afegir explicacions de la funció 'comprovarLimitsGir' de tauler.cpp.
 -afegir explicacions de la funció 'giraFigura' de Joc.cpp.
 -afegir explicacions de la funció 'inserirFigura' a tauler.cpp.
@@ -6,7 +5,6 @@
 -afegir explicacions funció 'eliminaFiles' i 'baixaFiles' a tauler.cpp.
 -mou figura funciona correctament, pensar en com optimitzar-la (la part de comprovar els límits laterals) (codi massa llarg).
 -mirar si es podria fer una funció que es digui comprovaLimits que comprovi tots els límits del tauler (superior, inferior i laterals), ja que els comprovo per separat diverses vegades en les funcions inserirFigura, comprovaLimitsLaterlals, comprovaLimitsInferiors, comprovaLimitsGir.
--a tauler.h, mirar si algunes funcions de comprovarLimits poden ser const.
--funcions per baixar y moure les figures fa falta eliminar y inserir de nou? es podria moure directament desde la funció tauler? SI, ja ho he fet amb baixaFigura, falta amb moure.
--constructor tauler? constructor joc?
+-optimitzar girarFigura?
 -revisar que estigui tot ben explicat.
+-modificar gitignore.
