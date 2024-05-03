@@ -9,7 +9,7 @@ void Tauler::inicialitzar()
 	}
 }
 
-void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
+void Tauler::inserirFigura(const Figura& f)	
 {
 	bool esPotInserir = true;
 	int fila = 0, columna = 0;
@@ -41,13 +41,16 @@ void Tauler::inserirFigura(const Figura& f)	//afegir comentaris explicatius
 			i++;
 		}
 
-		ColorFigura color = f.getColor();
-		for (i = 0; i < nCasMax; i++)
+		if (esPotInserir)
 		{
-			for (j = 0; j < nCasMax; j++)
+			ColorFigura color = f.getColor();
+			for (i = 0; i < nCasMax; i++)
 			{
-				if (matriuAux[i][j])
-					m_tauler[fila + i][columna + j] = color;
+				for (j = 0; j < nCasMax; j++)
+				{
+					if (matriuAux[i][j])
+						m_tauler[fila + i][columna + j] = color;
+				}
 			}
 		}
 	}
@@ -127,7 +130,7 @@ void Tauler::baixaFigura(Figura& f)
 	f.baixarFigura();
 }
 
-bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	const //pensar com optimitzar aquesta funció
+bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	const
 {
 	int nCasMax = f.nombreCaselles(f.getTipus());
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
@@ -191,7 +194,7 @@ bool Tauler::comprovarLimitsLaterals(int dirX, const Figura& f)	const //pensar c
 				{
 					if (matriuAux[i][j])	//si hi ha peça
 					{
-						if (!matriuAux[i][j - 1] || (columna + j - 1) == -1)	//si a la esquerra de la peça no hi ha peça o si ens trobem a la primera columna del tauler
+						if (!matriuAux[i][j - 1] || j == 0)	//si a la esquerra de la peça no hi ha peça o si ens trobem a la primera columna del tauler
 						{
 							if (m_tauler[fila + i][columna + j - 1] != COLOR_NEGRE || (columna + j - 1) == -1)	//comprovar si la posició a la esquerra de la peça està buida o si ens trobem a la primera columna del tauler
 								aux = false;
@@ -270,7 +273,7 @@ void Tauler::mouFigura(int dirX, Figura& f)
 	f.moureLateralment(dirX);
 }
 
-bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)	//afegir explicacions
+bool Tauler::comprovarLimitsGir(DireccioGir dir, Figura& f)
 {
 	bool aux = true;
 	int fila = f.getPosActFil(), columna = f.getPosActCol(), forma = f.getFormaAct();
@@ -407,6 +410,8 @@ void Tauler::baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigu
 
 			for (int j = 0; j < MAX_COL; j++)
 				m_tauler[cont][j] = COLOR_NEGRE;
+
+			cont++;
 		}
 	}
 }

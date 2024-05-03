@@ -96,7 +96,7 @@ void Joc::inicialitza(const string& nomFitxer)
 	}
 }
 
-bool Joc::giraFigura(DireccioGir direccio)	//afegir explicacions
+bool Joc::giraFigura(DireccioGir direccio)	
 {
 	bool valid = false;
 

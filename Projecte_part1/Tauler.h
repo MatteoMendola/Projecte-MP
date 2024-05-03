@@ -16,13 +16,16 @@ public:
 
 	void inserirFigura(const Figura& f);
 	void eliminarFigura(const Figura& f);
-	bool comprovarLimitsInferiors(const Figura& f) const;	//si retorna true, la figura pot baixar, si retorna false, no
+
+	bool comprovarLimitsInferiors(const Figura& f) const;
 	void baixaFigura(Figura& f);
-	bool comprovarLimitsLaterals(int dirX, const Figura& f) const;	//si retorna true, la figura es pot moure, si retorna false, no
-	void mouFigura(int dirX, Figura& f);
-	bool comprovarLimitsGir(DireccioGir dir, Figura& f);	//si retorna true, la figura es pot girar, si retorna false, no
 	int eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f);
 	void baixarFiles(bool filesEliminadesArray[], int longitud, int filaFigura, Figura& f);
+
+	bool comprovarLimitsLaterals(int dirX, const Figura& f) const;
+	void mouFigura(int dirX, Figura& f);
+
+	bool comprovarLimitsGir(DireccioGir dir, Figura& f);
 private:
 	ColorFigura m_tauler[MAX_FILA][MAX_COL];
 };
