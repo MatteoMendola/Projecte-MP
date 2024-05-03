@@ -7,7 +7,7 @@ Joc::Joc()
 	m_tauler.inicialitzar();
 }
 
-TipusFigura Joc::convertirEnTipusFigura(int tipus) const
+TipusFigura Joc::convertirEnTipusFigura(int tipus) const //transforma un 'int' en un 'TipusFigura', per la funció d'inicialitzar a partir d'un fitxer
 {
 	TipusFigura t = NO_FIGURA;
 
@@ -32,7 +32,7 @@ TipusFigura Joc::convertirEnTipusFigura(int tipus) const
 	return t;
 }
 
-ColorFigura Joc::convertirEnColorFigura(int color) const
+ColorFigura Joc::convertirEnColorFigura(int color) const //transforma un 'int' en un 'ColorFigura', per la funció d'inicialitzar a partir d'un fitxer
 {
 	ColorFigura c = NO_COLOR;
 	
@@ -59,7 +59,7 @@ ColorFigura Joc::convertirEnColorFigura(int color) const
 	return c;
 }
 
-void Joc::inicialitza(const string& nomFitxer)
+void Joc::inicialitza(const string& nomFitxer) //inicialitza una l'estat d'una partida a partir d'un fitxer
 {
 	ifstream fitxer;
 	fitxer.open(nomFitxer);
@@ -69,6 +69,7 @@ void Joc::inicialitza(const string& nomFitxer)
 		int tipusAux, fila, columna, nGirs;
 		fitxer >> tipusAux >> fila >> columna >> nGirs;
 		
+		//primer, els atributs de la figuraActual:
 		m_figuraActual.setTipus(convertirEnTipusFigura(tipusAux));
 		m_figuraActual.setPosActFil(fila);
 		m_figuraActual.setPosActCol(columna);
@@ -76,8 +77,9 @@ void Joc::inicialitza(const string& nomFitxer)
 		m_figuraActual.setColor(convertirEnColorFigura(tipusAux));
 		m_figuraActual.inicialitzarMatriuAuxiliar();
 		for (int i = 0; i < nGirs; i++)
-			m_figuraActual.girarFigura(GIR_HORARI);
+			m_figuraActual.girarFigura(GIR_HORARI); //girem la figura
 
+		//inicialitzem el tauler:
 		ColorFigura color;
 		int colorAux;
 		for (int i = 0; i < MAX_FILA; i++)
@@ -90,57 +92,51 @@ void Joc::inicialitza(const string& nomFitxer)
 			}
 		}
 
-		m_tauler.inserirFigura(m_figuraActual);
+		m_tauler.inserirFigura(m_figuraActual); //inserim la figura
 
 		fitxer.close();
 	}
 }
 
-bool Joc::giraFigura(DireccioGir direccio)	
+bool Joc::giraFigura(DireccioGir direccio) //retorna un booleà depenent si la figura s'ha pogut girar o no
 {
 	bool valid = false;
 
-	if (m_figuraActual.getTipus() != FIGURA_O)
-	{
-		valid = m_tauler.comprovarLimitsGir(direccio, m_figuraActual);
-
-		if (valid)
-		{
-			m_tauler.eliminarFigura(m_figuraActual);
-			m_figuraActual.girarFigura(direccio);
-			m_tauler.inserirFigura(m_figuraActual);
-		}
-	}
+	if (m_figuraActual.getTipus() != FIGURA_O) //només girem si la figura no és la O (el quadrat), ja que es queda igual
+		valid = m_tauler.giraFigura(direccio, m_figuraActual); //girem la figura, si es pot
 	
 	return valid;
 }
 
-bool Joc::mouFigura(int dirX)
+bool Joc::mouFigura(int dirX) //retorna un booleà depenent si la figura s'ha pogut moure o no
 {
-	bool valid = m_tauler.comprovarLimitsLaterals(dirX, m_figuraActual);
+	bool valid = m_tauler.comprovarLimitsLaterals(dirX, m_figuraActual); //comprova si es pot moure o no
 
-	if (valid)
-		m_tauler.mouFigura(dirX, m_figuraActual);
+	if (valid) //si es pot moure
+		m_tauler.mouFigura(dirX, m_figuraActual); //mou la figura
 
 	return valid;
 }
 
-int Joc::baixaFigura()
+int Joc::baixaFigura() //retorna un 'int' amb el nombre de files eliminades
 {
-	if (m_tauler.comprovarLimitsInferiors(m_figuraActual))
-		m_tauler.baixaFigura(m_figuraActual);
+	if (m_tauler.comprovarLimitsInferiors(m_figuraActual)) //comprova si es pot baixar o no
+		m_tauler.baixaFigura(m_figuraActual); //baixa la figura
 
-	int nCasMax = m_figuraActual.nombreCaselles(m_figuraActual.getTipus()), fila = 0, noUse = 0;
+	int nCasMax = m_figuraActual.nombreCaselles(m_figuraActual.getTipus()); //màxim de peces que ocupa la figura
+	int fila = 0, noUse = 0;
 	m_figuraActual.calcularPosicioTauler(fila, noUse);
-	bool filesEliminadesArray[MAX_ALCADA];
-	int filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray, nCasMax, m_figuraActual);
-	if (filesEliminades > 0)
-		m_tauler.baixarFiles(filesEliminadesArray, nCasMax, fila, m_figuraActual);
+	
+	bool filesEliminadesArray[MAX_ALCADA]; //array que indica si una fila ha estat eliminada o no (els índexs son les files)
+	int filesEliminades = m_tauler.eliminaFiles(filesEliminadesArray, nCasMax, m_figuraActual); //elimina les files que es puguin eliminar
+	
+	if (filesEliminades > 0) //si s'han eliminat files
+		m_tauler.baixarFiles(filesEliminadesArray, nCasMax, fila, m_figuraActual); //baixa les files que calgui a partir de les eliminades
 		
 	return filesEliminades;
 }
 
-void Joc::escriuTauler(const string& nomFitxer)
+void Joc::escriuTauler(const string& nomFitxer) //escriu l'estat d'una partida a un fitxer
 {
 	ofstream fitxer;
 	fitxer.open(nomFitxer);

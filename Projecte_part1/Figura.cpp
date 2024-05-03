@@ -32,9 +32,9 @@ void Figura::setMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA], int
 	}
 }
 
-void Figura::inicialitzarMatriuAuxiliar()
+void Figura::inicialitzarMatriuAuxiliar() //s'inicialitza la matriu auxiliar sense girs depenent de la figura
 {
-	for (int i = 0; i < MAX_ALCADA; i++)	//la inicialitzem tota a false ja que, com els tests es fan seguits, es guarden els true dels tests anteriors
+	for (int i = 0; i < MAX_ALCADA; i++) //la inicialitzem tota a false ja que, com els tests es fan seguits, es guarden els valors dels tests anteriors
 	{
 		for (int j = 0; j < MAX_AMPLADA; j++)
 			m_formaActualEnMatriu[i][j] = false;
@@ -87,7 +87,7 @@ void Figura::inicialitzarMatriuAuxiliar()
 	}
 }
 
-int Figura::nombreCaselles(TipusFigura tipus) const
+int Figura::nombreCaselles(TipusFigura tipus) const //nombre màxim de caselles en horitzontal o en vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
 {
 	int nCas = 0;
 
@@ -119,7 +119,7 @@ void Figura::moureLateralment(int dirX)
 	}
 }
 
-void Figura::transposarMatriu(int nCasMax)
+void Figura::transposarMatriu(int nCasMax) //per girar les figures
 {
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	getMatriuFormaAct(matriuAux);
@@ -131,59 +131,59 @@ void Figura::transposarMatriu(int nCasMax)
 	}
 }
 
-void Figura::invertirColumnes(int nCasMax)
+void Figura::invertirColumnes(int nCasMax) //per girar les figures
 {
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	getMatriuFormaAct(matriuAux);
 	
 	int fixe = 2;
 
-	if (nCasMax == 4)	//si es la figura "I"
+	if (nCasMax == 4) //si es la figura "I"
 	{
 		for (int i = 0; i < nCasMax; i++)
 		{
-			m_formaActualEnMatriu[i][1] = matriuAux[i][fixe];	//intercanviar la 2a i la 3a columna
-			m_formaActualEnMatriu[i][fixe] = matriuAux[i][1];	//intercanviar la 3a i la 2a columna
+			m_formaActualEnMatriu[i][1] = matriuAux[i][fixe]; //intercanviar la 2a i la 3a columna
+			m_formaActualEnMatriu[i][fixe] = matriuAux[i][1]; //intercanviar la 3a i la 2a columna
 		}
 		
 		fixe = 3;
 	}
 		
-	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
+	for (int i = 0; i < nCasMax; i++) //per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
 	{
-		m_formaActualEnMatriu[i][0] = matriuAux[i][fixe];	//intercanviar la primera i la última columna
-		m_formaActualEnMatriu[i][fixe] = matriuAux[i][0];	//intercanviar la última i la primera columna;
+		m_formaActualEnMatriu[i][0] = matriuAux[i][fixe]; //intercanviar la primera i la última columna
+		m_formaActualEnMatriu[i][fixe] = matriuAux[i][0]; //intercanviar la última i la primera columna;
 	}
 }
 
-void Figura::invertirFiles(int nCasMax)
+void Figura::invertirFiles(int nCasMax) //per girar les figures
 {
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA];
 	getMatriuFormaAct(matriuAux);
 
 	int fixe = 2;
 
-	if (nCasMax == 4)	//si es la figura "I"
+	if (nCasMax == 4) //si es la figura "I"
 	{
 		for (int i = 0; i < nCasMax; i++)
 		{
-			m_formaActualEnMatriu[1][i] = matriuAux[fixe][i];	//intercanviar la 2a i la 3a fila
-			m_formaActualEnMatriu[fixe][i] = matriuAux[1][i];	//intercanviar la 3a i la 2a fila
+			m_formaActualEnMatriu[1][i] = matriuAux[fixe][i]; //intercanviar la 2a i la 3a fila
+			m_formaActualEnMatriu[fixe][i] = matriuAux[1][i]; //intercanviar la 3a i la 2a fila
 		}
 
 		fixe = 3;
 	}
 
-	for (int i = 0; i < nCasMax; i++)	//per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
+	for (int i = 0; i < nCasMax; i++) //per totes les figures (menys el quadrat, que mai entrarà en aquesta funció, ja que no es gira)
 	{
-		m_formaActualEnMatriu[0][i] = matriuAux[fixe][i];	//intercanviar la primera i la última fila
-		m_formaActualEnMatriu[fixe][i] = matriuAux[0][i];	//intercanviar la última i la primera fila
+		m_formaActualEnMatriu[0][i] = matriuAux[fixe][i]; //intercanviar la primera i la última fila
+		m_formaActualEnMatriu[fixe][i] = matriuAux[0][i]; //intercanviar la última i la primera fila
 	}
 }
 
 void Figura::girarFigura(DireccioGir dir)
 {
-	if (m_tipus != NO_FIGURA && m_tipus != FIGURA_O)	//si és el quadrat no el girem, ja que es queda igual
+	if (m_tipus != NO_FIGURA && m_tipus != FIGURA_O) //si és el quadrat no el girem, ja que es queda igual
 	{
 		int nCasMax = nombreCaselles(m_tipus);
 		transposarMatriu(nCasMax);
@@ -211,7 +211,7 @@ void Figura::girarFigura(DireccioGir dir)
 	}
 }
 
-void Figura::modificarCentreFiguraI(DireccioGir dir)
+void Figura::modificarCentreFiguraI(DireccioGir dir) //modifica el centre de la FIGURA_I
 {
 	switch (dir)
 	{
@@ -244,9 +244,9 @@ void Figura::modificarCentreFiguraI(DireccioGir dir)
 	}
 }
 
-void Figura::calcularPosicioTauler(int& fila, int& columna) const
-{
-	fila = m_posicioActual[0];
+void Figura::calcularPosicioTauler(int& fila, int& columna) const //calcula la primera posició del tauler on comença la figura (cantonada
+{																  //superior esquerra) a partir del centre de la figura depenent del tipus
+	fila = m_posicioActual[0];									  //de figura que sigui
 	columna = m_posicioActual[1];
 
 	switch (nombreCaselles(m_tipus))

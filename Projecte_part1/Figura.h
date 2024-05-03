@@ -38,9 +38,11 @@ typedef enum
 class Figura
 {
 public:
+    //CONSTRUCTOR:
     Figura() { inicialitzar(); }
     void inicialitzar();
 
+    //GETTERS:
     ColorFigura getColor() const { return m_color; }
     TipusFigura getTipus() const { return m_tipus; }
     int getPosActFil() const { return m_posicioActual[0]; }
@@ -48,6 +50,7 @@ public:
     int getFormaAct() const { return m_formaActual; }
     void getMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA]) const;
 
+    //SETTERS:
     void setColor(ColorFigura color) { m_color = color; }
     void setTipus(TipusFigura tipus) { m_tipus = tipus; }
     void setPosActFil(int fila) { m_posicioActual[0] = fila; }
@@ -55,26 +58,29 @@ public:
     void setFormaAct(int formaAct) { m_formaActual = formaAct; }
     void setMatriuFormaAct(bool matriuFormaAct[MAX_ALCADA][MAX_AMPLADA], int longitud);
 
-    void inicialitzarMatriuAuxiliar();  //s'inicialitza la matriu auxiliar sense girs
-    int nombreCaselles(TipusFigura tipus) const;    //nombre màxim de caselles en horitzontal o vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
-    void calcularPosicioTauler(int& fila, int& columna) const;	//calcula la primera posició del tauler on comença la figura (cantonada
-                                                                //superior esquerra) a partir del centre de la figura depenent del tipus
-                                                                //de figura que sigui
-
+    //FUNCIONS AUXILIARS:
+    void inicialitzarMatriuAuxiliar(); //s'inicialitza la matriu auxiliar sense girs depenent de la figura
+    int nombreCaselles(TipusFigura tipus) const; //nombre màxim de caselles en horitzontal o en vertical que pot arribar a ocupar una figura (lletra I = 4, O = 2, la resta = 3)
+    void calcularPosicioTauler(int& fila, int& columna) const; //calcula la primera posició del tauler on comença la figura (cantonada
+                                                               //superior esquerra) a partir del centre de la figura depenent del tipus
+                                                               //de figura que sigui
+    //FUNCIONS PRINCIPALS:
     void baixarFigura() { m_posicioActual[0]++; }
     void moureLateralment(int dirX); //-1 esq, +1 dreta
     void girarFigura(DireccioGir dir);
 private:
+    //ATRIBUTS:
     ColorFigura m_color;
     TipusFigura m_tipus;
     int m_posicioActual[2]; //array que guarda les coordenades del centre de la figura dins del tauler, primera posició: fila, segona posició: columna
-    int m_formaActual;  //0 – 3, segons ordre dels girs en sentit horari a la descripció de les figures (pàgina 8 del pwp de la 1a part)
-    bool m_formaActualEnMatriu[MAX_ALCADA][MAX_AMPLADA];    //matriu que guarda la forma de la figura, true = hi ha peça, false = no hi ha
+    int m_formaActual; //0 – 3, segons ordre dels girs en sentit horari a la descripció de les figures (pàgina 8 del pwp de la 1a part)
+    bool m_formaActualEnMatriu[MAX_ALCADA][MAX_AMPLADA]; //matriu que guarda la forma de la figura, true = hi ha peça, false = no hi ha
     
-    void transposarMatriu(int nCasMax);
-    void invertirColumnes(int nCasMax);
-    void invertirFiles(int nCasMax);
-    void modificarCentreFiguraI(DireccioGir dir);
+    //FUNCIONS AUXILIARS:
+    void transposarMatriu(int nCasMax); //per girar les figures
+    void invertirColumnes(int nCasMax); //per girar les figures
+    void invertirFiles(int nCasMax); //per girar les figures
+    void modificarCentreFiguraI(DireccioGir dir); //modifica el centre de la FIGURA_I
 };
 
 #endif
