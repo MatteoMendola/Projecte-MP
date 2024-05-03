@@ -133,7 +133,7 @@ void Tauler::baixaFigura(Figura& f)
 int Tauler::eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f) //elimina les files que estan plenes, return: número de files eliminades
 {
 	int filesEliminades = 0, j = 0;
-	bool casellaNegre = false, hiHaPeça = false;
+	bool casellaNegre = false, hiHaPeca = false;
 
 	bool matriuAux[MAX_ALCADA][MAX_AMPLADA]; //matriu de la figura
 	f.getMatriuFormaAct(matriuAux);
@@ -142,18 +142,18 @@ int Tauler::eliminaFiles(bool filesEliminadesArray[], int longitud, Figura& f) /
 
 	for (int i = 0; i < longitud; i++) //recórrem les files de la matriu
 	{
-		while (j < longitud && !hiHaPeça) //cerquem si hi ha una peça
+		while (j < longitud && !hiHaPeca) //cerquem si hi ha una peça
 		{
 			if (matriuAux[i][j])
-				hiHaPeça = true;
+				hiHaPeca = true;
 
 			j++;
 		}
 
-		if (hiHaPeça) //si hi ha peça, comprovem si aquella fila del tauler està plena o no
+		if (hiHaPeca) //si hi ha peça, comprovem si aquella fila del tauler està plena o no
 		{
 			j = 0;
-			hiHaPeça = false;
+			hiHaPeca = false;
 
 			while (j < MAX_COL && !casellaNegre) //cerca de la fila
 			{
