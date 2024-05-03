@@ -5,6 +5,3 @@ Fet per:
 
 # Descripció
 Projecte del joc Tetris per l'assignatura Metodologia de la Programació, carrera d'Enginyeria Informàtica, UAB.
-
-# Dates
-Data d'inici: abril del 2024.

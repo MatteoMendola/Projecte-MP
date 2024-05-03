@@ -10,6 +10,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -43,7 +44,6 @@
 *.VC.db-wal
 *.VC.opendb
 *.suo
-*.ipch
 *.ilk
 *.log
 *.tlog
