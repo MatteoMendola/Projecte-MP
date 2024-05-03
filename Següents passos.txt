@@ -1,5 +1,1 @@
--mou figura funciona correctament, pensar en com optimitzar-la (la part de comprovar els límits laterals) (codi massa llarg).
--mirar si es podria fer una funció que es digui comprovaLimits que comprovi tots els límits del tauler (superior, inferior i laterals), ja que els comprovo per separat diverses vegades en les funcions inserirFigura, comprovaLimitsLaterlals, comprovaLimitsInferiors, comprovaLimitsGir.
--optimitzar girarFigura?
--revisar que estigui tot ben explicat.
--modificar gitignore.
+-afegir explicacions.
