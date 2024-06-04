@@ -63,7 +63,8 @@ bool Partida::actualitza(int mode, double deltaTime)
 
 	m_joc.dibuixa();
 
-
+	string msg = "Puntuacio: 0		Nivell: 1";
+	GraphicManager::getInstance()->drawFont(FONT_WHITE_30, POS_X_TAULER, POS_Y_TAULER - 50, 1.0, msg);	//no funciona
 
 	m_temps += deltaTime;
 	if (m_temps > 1.0)
